@@ -8,7 +8,7 @@ namespace Neon {
 template <typename T, unsigned int D> class Vector {
 public:
   Vector(T x = 0) {
-    for (int i = 0; i < D; i++) {
+    for (unsigned int i = 0; i < D; i++) {
       m_data[i] = x;
     }
   }
@@ -42,7 +42,7 @@ public:
 
   Vector<T, D> operator+(const Vector<T, D> &other) const {
     Vector<T, D> v;
-    for (int i = 0; i < D; i++) {
+    for (unsigned int i = 0; i < D; i++) {
       v[i] = m_data[i] + other[i];
     }
 
@@ -50,7 +50,7 @@ public:
   }
 
   Vector<T, D> &operator+=(const Vector<T, D> &other) {
-    for (int i = 0; i < D; i++) {
+    for (unsigned int i = 0; i < D; i++) {
       m_data[i] += other[i];
     }
     return *this;
@@ -58,7 +58,7 @@ public:
 
   Vector<T, D> operator-() const {
     Vector<T, D> v;
-    for (int i = 0; i < D; i++) {
+    for (unsigned int i = 0; i < D; i++) {
       v[i] = -m_data[i];
     }
 
@@ -78,7 +78,7 @@ public:
 
   template <typename U> Vector<T, D> operator*(U t) const {
     Vector<T, D> v;
-    for (int i = 0; i < D; i++) {
+    for (unsigned int i = 0; i < D; i++) {
       v[i] = t * m_data[i];
     }
 
@@ -86,7 +86,7 @@ public:
   }
 
   template <typename U> Vector<T, D> &operator*=(U t) {
-    for (int i = 0; i < D; i++) {
+    for (unsigned int i = 0; i < D; i++) {
       m_data[i] *= t;
     }
     return *this;
@@ -99,10 +99,34 @@ public:
 
   template <typename U> Vector<T, D> &operator/=(U t) const {
     U inv = 1 / t;
-    for (int i = 0; i < D; i++) {
+    for (unsigned int i = 0; i < D; i++) {
       m_data[i] *= inv;
     }
     return *this;
+  }
+
+  T dot(const Vector<T, D> &other) const {
+    T result = 0;
+    for (unsigned int i = 0; i < D; i++) {
+      result += m_data[i] * other[i];
+    }
+
+    return result;
+  }
+
+  float lengthSq() const { return this->dot(*this); }
+
+  float length() const { return std::qsort(lengthSq()); }
+
+  Vector<T, D> cross(const Vector<T, D> &other) const {
+    assert(D == 3);
+    Vector<T, D> result;
+
+    result[0] = m_data[1] * other[2] - m_data[2] * other[1];
+    result[1] = m_data[2] * other[0] - m_data[0] * other[2];
+    result[2] = m_data[0] * other[1] - m_data[1] * other[0];
+
+    return result;
   }
 
 private:

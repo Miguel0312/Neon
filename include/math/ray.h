@@ -14,7 +14,7 @@ public:
 
   Ray(const Point3f &o, const Vector3f &d) : origin(o), dir(d) {}
 
-  Point3f operator()(float t) { return origin + t * dir; }
+  Point3f operator()(float t) const { return origin + t * dir; }
 };
 } // namespace Neon
 

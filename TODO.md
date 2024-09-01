@@ -1,7 +1,8 @@
 - [x] Write pixels to an image
 - [x] Create a point, vector, color, ray abstractions
-- [ ] Create a camera
-- [ ] Create sphere object
+- [x] Create a camera
+- [x] Create sphere object
+- [ ] Create an interval object and use it in shape intersection
 - [ ] Create a scene
 - [ ] Create the renderer class
 - [ ] Create a live visualization of the rendering process
@@ -9,3 +10,5 @@
 - [ ] Create the triangle object
 - [ ] Create an acceleration structure
 - [ ] Create a precompiled header
+- [ ] Create a normal class
+- [ ] Implement transformations
