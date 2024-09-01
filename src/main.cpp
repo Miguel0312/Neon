@@ -1,8 +1,15 @@
+#include "math/point.h"
+#include "math/ray.h"
+#include "math/vector.h"
+#include <iostream>
+#include <math/vector.h>
 #include <utils/color.h>
 #include <utils/image.h>
 
 #define WIDTH 256
 #define HEIGHT 256
+
+using namespace Neon;
 
 int main() {
   std::vector<std::vector<Neon::Color>> pixels(HEIGHT,
@@ -17,6 +24,14 @@ int main() {
   }
 
   Neon::createImage("images/test.png", pixels, WIDTH, HEIGHT);
+
+  Point3f p(0, 1, 0);
+  Vector3f v(1, 0, 0);
+
+  Ray r(p, v);
+
+  std::cout << r(0.5) << std::endl;
+  std::cout << r(1.0) << std::endl;
 
   return 0;
 }

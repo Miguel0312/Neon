@@ -1,11 +1,11 @@
 - [x] Write pixels to an image
-- Create a point, vector, color, ray abstractions
-- Create a camera
-- Create a scene
-- Create the renderer class
-- Create sphere object
-- Create a live visualization of the rendering process
-- Create a thread pool
-- Create the triangle object
-- Create an acceleration structure
-- Create a precompiled header
+- [x] Create a point, vector, color, ray abstractions
+- [ ] Create a camera
+- [ ] Create sphere object
+- [ ] Create a scene
+- [ ] Create the renderer class
+- [ ] Create a live visualization of the rendering process
+- [ ] Create a thread pool
+- [ ] Create the triangle object
+- [ ] Create an acceleration structure
+- [ ] Create a precompiled header
