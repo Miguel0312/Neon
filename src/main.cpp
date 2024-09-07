@@ -1,9 +1,11 @@
 #include "math/point.h"
 #include "scene/camera.h"
+#include "scene/scene.h"
 #include "scene/shape.h"
 #include "scene/sphere.h"
 #include <iostream>
 #include <math/vector.h>
+#include <memory>
 #include <utils/color.h>
 #include <utils/image.h>
 
@@ -16,27 +18,17 @@ int main() {
   std::vector<std::vector<Neon::Color>> pixels(HEIGHT,
                                                std::vector<Neon::Color>(WIDTH));
 
-  Neon::Camera camera;
-  camera.setWidth(WIDTH), camera.setHeight(HEIGHT);
-  camera.setCenter({0, 0, 2});
+  std::unique_ptr<Camera> camera = std::make_unique<Camera>();
+  camera->setWidth(WIDTH), camera->setHeight(HEIGHT);
+  camera->setCenter({0, 0, 2});
 
-  ShapeIntersectionRecord rec;
-  Sphere sphere(0, 1);
+  std::unique_ptr<Sphere> sphere = std::make_unique<Sphere>(0, 1);
 
-  if (sphere.intersect(camera.getRay(HEIGHT / 2, WIDTH / 2), Intervalf(0, 100),
-                       rec)) {
-    std::cout << rec.p << std::endl;
-  }
+  Scene scene;
+  scene.addShape(std::move(sphere));
+  scene.setCamera(camera);
 
-  for (int i = 0; i < HEIGHT; i++) {
-    for (int j = 0; j < WIDTH; j++) {
-      pixels[i][j].r = double(i) / (HEIGHT - 1);
-      pixels[i][j].g = double(j) / (WIDTH - 1);
-      pixels[i][j].b = 0;
-    }
-  }
-
-  Neon::createImage("images/test.png", pixels, WIDTH, HEIGHT);
+  scene.render();
 
   return 0;
 }

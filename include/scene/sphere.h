@@ -4,7 +4,7 @@
 #include "shape.h"
 
 namespace Neon {
-class Sphere final : Shape {
+class Sphere final : public Shape {
 public:
   Sphere() : m_center(0), m_radius(1){};
   Sphere(const Point3f &center, float radius)

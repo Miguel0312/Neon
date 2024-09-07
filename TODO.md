@@ -3,7 +3,8 @@
 - [x] Create a camera
 - [x] Create sphere object
 - [x] Create an interval object and use it in shape intersection
-- [ ] Create a scene
+- [x] Create a scene
+- [ ] Create an integrator
 - [ ] Create the renderer class
 - [ ] Create a live visualization of the rendering process
 - [ ] Create a thread pool

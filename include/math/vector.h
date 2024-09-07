@@ -2,6 +2,7 @@
 #define NEON_VECTOR_H
 
 #include <cassert>
+#include <cmath>
 #include <ostream>
 
 namespace Neon {
@@ -116,7 +117,17 @@ public:
 
   float lengthSq() const { return this->dot(*this); }
 
-  float length() const { return std::qsort(lengthSq()); }
+  float length() const { return std::sqrt(lengthSq()); }
+
+  Vector<T, D> normalized() const { return *this / length(); }
+
+  Vector<T, D> &normalize() {
+    float norm = length();
+    for (unsigned int i = 0; i < D; i++) {
+      (*this)[i] /= norm;
+    }
+    return *this;
+  }
 
   Vector<T, D> cross(const Vector<T, D> &other) const {
     assert(D == 3);

@@ -7,7 +7,8 @@ Ray Camera::getRay(unsigned int i, unsigned int j) {
     prepareForRender();
   }
 
-  return Ray(m_center, m_topLeftVector + i * m_deltaV + j * m_deltaU);
+  return Ray(m_center,
+             (m_topLeftVector + i * m_deltaV + j * m_deltaU).normalize());
 }
 
 void Camera::prepareForRender() {
