@@ -3,7 +3,7 @@
 #include <scene/sphere.h>
 
 namespace Neon {
-bool Sphere::intersect(const Ray &r, const float minT, const float maxT,
+bool Sphere::intersect(const Ray &r, const Intervalf &tInterval,
                        float *t) const {
   Vector3f v = r.origin - m_center;
   // It only works because r.dir is normalized
@@ -18,7 +18,7 @@ bool Sphere::intersect(const Ray &r, const float minT, const float maxT,
 
   delta = std::sqrt(delta);
   float val = (-b - delta) / 2 * a;
-  if (val >= minT && val <= maxT) {
+  if (tInterval.contains(val)) {
     if (t) {
       *t = val;
     }
@@ -27,7 +27,7 @@ bool Sphere::intersect(const Ray &r, const float minT, const float maxT,
 
   val = (-b + delta) / 2 * a;
   std::cout << val << std::endl;
-  if (val >= minT && val <= maxT) {
+  if (tInterval.contains(val)) {
     if (t) {
       *t = val;
     }
@@ -37,9 +37,9 @@ bool Sphere::intersect(const Ray &r, const float minT, const float maxT,
   return false;
 }
 
-bool Sphere::intersect(const Ray &r, const float minT, const float maxT,
+bool Sphere::intersect(const Ray &r, const Intervalf &tInterval,
                        ShapeIntersectionRecord &rec) const {
-  bool hit = intersect(r, minT, maxT, &rec.t);
+  bool hit = intersect(r, tInterval, &rec.t);
   if (!hit) {
     return false;
   }

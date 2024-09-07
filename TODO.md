@@ -2,7 +2,7 @@
 - [x] Create a point, vector, color, ray abstractions
 - [x] Create a camera
 - [x] Create sphere object
-- [ ] Create an interval object and use it in shape intersection
+- [x] Create an interval object and use it in shape intersection
 - [ ] Create a scene
 - [ ] Create the renderer class
 - [ ] Create a live visualization of the rendering process

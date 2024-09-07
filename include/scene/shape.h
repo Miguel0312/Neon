@@ -1,6 +1,7 @@
 #ifndef NEON_SHAPE_H
 #define NEON_SHAPE_H
 
+#include "math/interval.h"
 #include "math/ray.h"
 namespace Neon {
 struct ShapeIntersectionRecord {
@@ -22,12 +23,12 @@ public:
   // The optional parameter t allows the caller to retrieve the t value of the
   // intersection, which is often already calculated, needed and comes from an
   // expensive computation
-  virtual bool intersect(const Ray &r, const float minT, const float maxT,
+  virtual bool intersect(const Ray &r, const Intervalf &tInterval,
                          float *t = nullptr) const = 0;
 
   // Returns true if and only if the ray colides with the shape with t in the
   // interval [minT, maxT] and fills rec with the necessary information
-  virtual bool intersect(const Ray &r, const float minT, const float maxT,
+  virtual bool intersect(const Ray &r, const Intervalf &tInterval,
                          ShapeIntersectionRecord &rec) const = 0;
 };
 } // namespace Neon

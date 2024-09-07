@@ -12,10 +12,10 @@ public:
 
   virtual ~Sphere() = default;
 
-  bool intersect(const Ray &r, const float minT, const float maxT,
+  bool intersect(const Ray &r, const Intervalf &tInterval,
                  float *t = nullptr) const override;
 
-  bool intersect(const Ray &r, const float minT, const float maxT,
+  bool intersect(const Ray &r, const Intervalf &tInterval,
                  ShapeIntersectionRecord &rec) const override;
 
 private:

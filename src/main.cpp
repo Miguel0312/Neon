@@ -23,7 +23,8 @@ int main() {
   ShapeIntersectionRecord rec;
   Sphere sphere(0, 1);
 
-  if (sphere.intersect(camera.getRay(HEIGHT / 2, WIDTH / 2), 0, 100, rec)) {
+  if (sphere.intersect(camera.getRay(HEIGHT / 2, WIDTH / 2), Intervalf(0, 100),
+                       rec)) {
     std::cout << rec.p << std::endl;
   }
 
