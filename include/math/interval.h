@@ -57,6 +57,10 @@ public:
   // Returns true if the interval is not empty (m_min <= m_max)
   bool empty() const { return m_min <= m_max; }
 
+  void setMax(T max) { m_max = max; }
+
+  void setMin(T min) { m_min = min; }
+
 private:
   T m_min, m_max;
 };

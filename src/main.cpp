@@ -1,5 +1,6 @@
 #include "math/point.h"
 #include "scene/camera.h"
+#include "scene/integrators/normalIntegrator.h"
 #include "scene/scene.h"
 #include "scene/shape.h"
 #include "scene/sphere.h"
@@ -22,11 +23,15 @@ int main() {
   camera->setWidth(WIDTH), camera->setHeight(HEIGHT);
   camera->setCenter({0, 0, 2});
 
-  std::unique_ptr<Sphere> sphere = std::make_unique<Sphere>(0, 1);
+  std::unique_ptr<Integrator> normalIntegrator =
+      std::make_unique<NormalIntegrator>();
+
+  std::unique_ptr<Shape> sphere = std::make_unique<Sphere>(0, 1);
 
   Scene scene;
-  scene.addShape(std::move(sphere));
+  scene.addShape(sphere);
   scene.setCamera(camera);
+  scene.setIntegrator(normalIntegrator);
 
   scene.render();
 

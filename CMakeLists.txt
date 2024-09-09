@@ -7,6 +7,7 @@ project(neon)
 
 add_executable(neon src/main.cpp
   src/scene/camera.cpp
+  src/scene/integrators/normalIntegrator.cpp
   src/scene/scene.cpp
   src/scene/sphere.cpp
   src/utils/color.cpp

@@ -6,7 +6,9 @@ struct Color {
   // RGB values of the color, should be between 0 and 1
   float r, g, b;
 
-  Color(float r = 0, float g = 0, float b = 0) : r(r), g(g), b(b) {}
+  Color(float c = 0) : r(c), g(c), b(c) {}
+
+  Color(float r, float g, float b) : r(r), g(g), b(b) {}
 
   Color operator*(float t) const { return Color(t * r, t * g, t * b); }
 

@@ -1,3 +1,5 @@
+#include "scene/integrators/integrator.h"
+#include "scene/shape.h"
 #include "utils/color.h"
 #include "utils/image.h"
 #include <iostream>
@@ -5,19 +7,39 @@
 #include <scene/scene.h>
 
 namespace Neon {
-void Scene::addShape(std::unique_ptr<Shape> shape) {
+void Scene::addShape(std::unique_ptr<Shape> &shape) {
   m_shapes.push_back(std::move(shape));
 }
 
 void Scene::setCamera(std::unique_ptr<Camera> &camera) {
   m_camera = std::move(camera);
 }
+void Scene::setIntegrator(std::unique_ptr<Integrator> &integrator) {
+  m_integrator = std::move(integrator);
+}
 
 void Scene::setFilename(const std::string &filename) { m_filename = filename; }
+
+bool Scene::rayIntersection(const Ray &r, ShapeIntersectionRecord &rec) {
+  bool result = false;
+  Intervalf tInterval(0.1, 100);
+  for (auto &shape : m_shapes) {
+    if (shape->intersect(r, tInterval, rec)) {
+      tInterval.setMax(rec.t);
+      result = true;
+    }
+  }
+
+  return result;
+}
 
 void Scene::render() {
   if (!m_camera) {
     std::cout << "ERROR: Camera was not set" << std::endl;
+    return;
+  }
+  if (!m_integrator) {
+    std::cout << "ERROR: Integrator was not set" << std::endl;
     return;
   }
   int width = m_camera->getWidth(), height = m_camera->getHeight();
@@ -28,9 +50,7 @@ void Scene::render() {
   for (int i = 0; i < height; i++) {
     for (int j = 0; j < width; j++) {
       Ray ray = m_camera->getRay(i, j);
-      float a = 0.5 * (1.0 + ray.dir[1]);
-      pixels[i][j] =
-          (1.0 - a) * Color(1.0, 1.0, 1.0) + a * Color(0.5, 0.7, 1.0);
+      pixels[i][j] = m_integrator->Li(this, ray);
     }
   }
 

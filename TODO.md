@@ -4,8 +4,7 @@
 - [x] Create sphere object
 - [x] Create an interval object and use it in shape intersection
 - [x] Create a scene
-- [ ] Create an integrator
-- [ ] Create the renderer class
+- [x] Create an integrator
 - [ ] Create a live visualization of the rendering process
 - [ ] Create a thread pool
 - [ ] Create the triangle object
