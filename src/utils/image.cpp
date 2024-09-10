@@ -13,14 +13,27 @@ void createImage(const std::string &filename,
   }
 
   std::vector<unsigned char> data(3 * width * height);
-  for (unsigned int i = 0; i < height; i++) {
-    for (unsigned int j = 0; j < width; j++) {
-      data[3 * (i * width + j) + 0] = int(255.999 * pixels[i][j].r);
-      data[3 * (i * width + j) + 1] = int(255.999 * pixels[i][j].g);
-      data[3 * (i * width + j) + 2] = int(255.999 * pixels[i][j].b);
-    }
-  }
+  colorToBytes(pixels, data);
 
   stbi_write_png("images/test.png", width, height, 3, data.data(), 3 * width);
+}
+
+// Pass the bytes by reference to limit the amount of alocations
+void colorToBytes(const std::vector<std::vector<Color>> &color,
+                  std::vector<unsigned char> &bytes) {
+  if (color.empty() || color[0].empty()) {
+    return;
+  }
+
+  unsigned int width = color[0].size(), height = color.size();
+  // Make sure we have enough room
+  bytes.resize(3 * color.size() * color[0].size());
+  for (unsigned int i = 0; i < height; i++) {
+    for (unsigned int j = 0; j < width; j++) {
+      bytes[3 * (i * width + j) + 0] = int(255.999 * color[i][j].r);
+      bytes[3 * (i * width + j) + 1] = int(255.999 * color[i][j].g);
+      bytes[3 * (i * width + j) + 2] = int(255.999 * color[i][j].b);
+    }
+  }
 }
 } // namespace Neon

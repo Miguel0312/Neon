@@ -9,6 +9,9 @@ namespace Neon {
 void createImage(const std::string &filename,
                  const std::vector<std::vector<Color>> &pixels,
                  unsigned int width, unsigned int height);
+
+void colorToBytes(const std::vector<std::vector<Color>> &color,
+                  std::vector<unsigned char> &bytes);
 } // namespace Neon
 
 #endif

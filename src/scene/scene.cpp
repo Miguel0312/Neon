@@ -13,6 +13,8 @@ void Scene::addShape(std::unique_ptr<Shape> &shape) {
 
 void Scene::setCamera(std::unique_ptr<Camera> &camera) {
   m_camera = std::move(camera);
+  m_pixels = std::vector<std::vector<Neon::Color>>(
+      m_camera->getHeight(), std::vector<Neon::Color>(m_camera->getWidth()));
 }
 void Scene::setIntegrator(std::unique_ptr<Integrator> &integrator) {
   m_integrator = std::move(integrator);
@@ -44,17 +46,14 @@ void Scene::render() {
   }
   int width = m_camera->getWidth(), height = m_camera->getHeight();
 
-  std::vector<std::vector<Neon::Color>> pixels(height,
-                                               std::vector<Neon::Color>(width));
-
   for (int i = 0; i < height; i++) {
     for (int j = 0; j < width; j++) {
       Ray ray = m_camera->getRay(i, j);
-      pixels[i][j] = m_integrator->Li(this, ray);
+      m_pixels[i][j] = m_integrator->Li(this, ray);
     }
   }
 
-  Neon::createImage(m_filename, pixels, width, height);
+  Neon::createImage(m_filename, m_pixels, width, height);
 
   std::cout << "Finished rendering " << m_filename << std::endl;
 }

@@ -15,6 +15,12 @@ public:
 
   void addShape(std::unique_ptr<Shape> &shape);
 
+  const std::unique_ptr<Camera> &getCamera() const { return m_camera; }
+
+  const std::vector<std::vector<Neon::Color>> &getPixels() const {
+    return m_pixels;
+  }
+
   void setCamera(std::unique_ptr<Camera> &camera);
 
   void setIntegrator(std::unique_ptr<Integrator> &integrator);
@@ -30,6 +36,7 @@ private:
   std::unique_ptr<Camera> m_camera;
   std::unique_ptr<Integrator> m_integrator;
   std::string m_filename = "images/test.png";
+  std::vector<std::vector<Neon::Color>> m_pixels;
 };
 } // namespace Neon
 

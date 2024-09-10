@@ -4,7 +4,7 @@
 #include "scene/scene.h"
 #include "scene/shape.h"
 #include "scene/sphere.h"
-#include <iostream>
+#include "utils/visualizer.h"
 #include <math/vector.h>
 #include <memory>
 #include <utils/color.h>
@@ -33,7 +33,11 @@ int main() {
   scene.setCamera(camera);
   scene.setIntegrator(normalIntegrator);
 
-  scene.render();
+  Visualizer visualizer(&scene);
+
+  visualizer.render();
+
+  // scene.render();
 
   return 0;
 }
