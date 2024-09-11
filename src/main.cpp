@@ -4,6 +4,7 @@
 #include "scene/scene.h"
 #include "scene/shape.h"
 #include "scene/sphere.h"
+#include "utils/sampling/independentSampler.h"
 #include "utils/visualizer.h"
 #include <math/vector.h>
 #include <memory>
@@ -26,18 +27,24 @@ int main() {
   std::unique_ptr<Integrator> normalIntegrator =
       std::make_unique<NormalIntegrator>();
 
+  std::unique_ptr<Sampler> sampler = std::make_unique<IndependentSampler>();
+
   std::unique_ptr<Shape> sphere1 = std::make_unique<Sphere>(0, 1);
   std::unique_ptr<Shape> sphere2 =
-      std::make_unique<Sphere>(Point3f(-3, 0, -3), 1);
+      std::make_unique<Sphere>(Point3f(-5, -5, -3), 1);
   std::unique_ptr<Shape> ground =
       std::make_unique<Sphere>(Point3f(0, -102, 0), 100);
 
   Scene scene;
-  scene.addShape(sphere1);
   scene.addShape(sphere2);
-  scene.addShape(ground);
+  for (int i = 0; i < 100; i++) {
+    std::unique_ptr<Shape> sphere =
+        std::make_unique<Sphere>(Point3f(-5 + i % 10, -5 + i / 10, 0), 0.5);
+    scene.addShape(sphere);
+  }
   scene.setCamera(camera);
   scene.setIntegrator(normalIntegrator);
+  scene.setSampler(sampler);
 
   Visualizer visualizer(&scene);
 

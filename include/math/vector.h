@@ -38,6 +38,26 @@ public:
     m_data[3] = w;
   }
 
+  T x() const {
+    assert(D >= 1);
+    return m_data[0];
+  }
+
+  T y() const {
+    assert(D >= 2);
+    return m_data[1];
+  }
+
+  T z() const {
+    assert(D >= 3);
+    return m_data[2];
+  }
+
+  T w() const {
+    assert(D >= 4);
+    return m_data[3];
+  }
+
   inline T &operator[](int i) { return m_data[i]; }
   inline const T operator[](int i) const { return m_data[i]; }
 

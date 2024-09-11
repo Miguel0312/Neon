@@ -7,11 +7,15 @@
 - [x] Create an integrator
 - [x] Create a live visualization of the rendering process
 - [x] Create a thread pool
-- [ ] Create the triangle object
+- [x] Implement a sampling util
+- [ ] Implement materials and BSDF
 - [ ] Create an acceleration structure
+- [ ] Create the triangle object
 - [ ] Create a precompiled header
 - [ ] Create a normal class
 - [ ] Implement transformations
 - [ ] Implement anti aliasing
 - [ ] Implement lights
-- [ ] Implement materials and BSDF
+- [ ] Import meshes
+- [ ] Implement anti-aliasing
+- [ ] Implement other types of samplers (metropolis, stratified, etc.)

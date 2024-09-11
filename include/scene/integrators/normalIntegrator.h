@@ -11,7 +11,7 @@ public:
 
   ~NormalIntegrator() = default;
 
-  Color Li(Scene *scene, const Ray &r) override;
+  Color Li(Scene *scene, const Ray &r, Sampler *sampler) override;
 };
 } // namespace Neon
 

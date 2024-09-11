@@ -4,7 +4,7 @@
 #include <scene/scene.h>
 
 namespace Neon {
-Color NormalIntegrator::Li(Scene *scene, const Ray &r) {
+Color NormalIntegrator::Li(Scene *scene, const Ray &r, Sampler *sampler) {
   ShapeIntersectionRecord rec;
   if (scene->rayIntersection(r, rec)) {
     // Convert the interval [-1,1] to [0,1]

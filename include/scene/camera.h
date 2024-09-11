@@ -44,7 +44,7 @@ public:
 
 private:
   unsigned int m_width = 800, m_height = 600;
-  float m_verticalFOV = 90;
+  float m_verticalFOV = 20;
   Point3f m_center{0};
   // Normalized vectors in world coordinates
   Vector3f m_forward{0, 0, -1}, m_up{0, 1, 0};

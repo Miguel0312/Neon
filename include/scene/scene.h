@@ -4,6 +4,7 @@
 #include "scene/camera.h"
 #include "scene/integrators/integrator.h"
 #include "scene/shape.h"
+#include "utils/sampling/sampler.h"
 #include <memory>
 #include <vector>
 namespace Neon {
@@ -25,6 +26,8 @@ public:
 
   void setIntegrator(std::unique_ptr<Integrator> &integrator);
 
+  void setSampler(std::unique_ptr<Sampler> &sampler);
+
   void setFilename(const std::string &filename);
 
   bool rayIntersection(const Ray &r, ShapeIntersectionRecord &rec);
@@ -35,6 +38,7 @@ private:
   std::vector<std::unique_ptr<Shape>> m_shapes;
   std::unique_ptr<Camera> m_camera;
   std::unique_ptr<Integrator> m_integrator;
+  std::unique_ptr<Sampler> m_sampler;
   std::string m_filename = "images/test.png";
   std::vector<std::vector<Neon::Color>> m_pixels;
 };

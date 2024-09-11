@@ -38,6 +38,26 @@ public:
     m_data[3] = w;
   }
 
+  T x() const {
+    assert(D >= 1);
+    return m_data[0];
+  }
+
+  T y() const {
+    assert(D >= 2);
+    return m_data[1];
+  }
+
+  T z() const {
+    assert(D >= 3);
+    return m_data[2];
+  }
+
+  T w() const {
+    assert(D >= 4);
+    return m_data[3];
+  }
+
   operator Vector<T, D>() {
     switch (D) {
     case 2:
@@ -128,6 +148,16 @@ public:
     }
     return *this;
   }
+
+  float normSq() const {
+    float result = 0;
+    for (unsigned int i = 0; i < D; i++) {
+      result += m_data[i] * m_data[i];
+    }
+    return result;
+  }
+
+  float norm() const { return std::sqrt(normSq()); }
 
 private:
   T m_data[D];

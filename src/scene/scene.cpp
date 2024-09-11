@@ -17,8 +17,13 @@ void Scene::setCamera(std::unique_ptr<Camera> &camera) {
   m_pixels = std::vector<std::vector<Neon::Color>>(
       m_camera->getHeight(), std::vector<Neon::Color>(m_camera->getWidth()));
 }
+
 void Scene::setIntegrator(std::unique_ptr<Integrator> &integrator) {
   m_integrator = std::move(integrator);
+}
+
+void Scene::setSampler(std::unique_ptr<Sampler> &sampler) {
+  m_sampler = std::move(sampler);
 }
 
 void Scene::setFilename(const std::string &filename) { m_filename = filename; }
@@ -45,21 +50,28 @@ void Scene::render() {
     std::cout << "ERROR: Integrator was not set" << std::endl;
     return;
   }
+  if (!m_sampler) {
+    std::cout << "ERROR: Sampler was not set" << std::endl;
+    return;
+  }
   int width = m_camera->getWidth(), height = m_camera->getHeight();
 
   ThreadPool threadPool;
 
-  const int step = 32;
+  const int step = 64;
 
   for (int i = 0; i < height; i += step) {
     for (int j = 0; j < width; j += step) {
 
       threadPool.queueJob([i, j, width, height, this] {
+        // The sampler needs to be cloned to insure reproducibility when using a
+        // multi threaded rendering process
+        std::unique_ptr<Sampler> sampler = m_sampler->clone();
         int r = std::min(i + step, height), b = std::min(j + step, width);
         for (int k = i; k < r; k++) {
           for (int l = j; l < b; l++) {
             Ray ray = m_camera->getRay(k, l);
-            m_pixels[k][l] = m_integrator->Li(this, ray);
+            m_pixels[k][l] = m_integrator->Li(this, ray, sampler.get());
           }
         }
       });

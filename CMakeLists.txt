@@ -19,6 +19,8 @@ add_executable(neon src/main.cpp
   src/scene/sphere.cpp
   src/utils/color.cpp
   src/utils/image.cpp
+  src/utils/sampling/independentSampler.cpp
+  src/utils/sampling/warp.cpp
   src/utils/threadPool.cpp
   src/utils/visualizer.cpp
   src/thirdparty/glad.c
