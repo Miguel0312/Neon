@@ -19,6 +19,7 @@ add_executable(neon src/main.cpp
   src/scene/sphere.cpp
   src/utils/color.cpp
   src/utils/image.cpp
+  src/utils/threadPool.cpp
   src/utils/visualizer.cpp
   src/thirdparty/glad.c
   src/thirdparty/stb/stb_image_write.cpp)

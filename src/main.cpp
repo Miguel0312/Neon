@@ -26,10 +26,16 @@ int main() {
   std::unique_ptr<Integrator> normalIntegrator =
       std::make_unique<NormalIntegrator>();
 
-  std::unique_ptr<Shape> sphere = std::make_unique<Sphere>(0, 1);
+  std::unique_ptr<Shape> sphere1 = std::make_unique<Sphere>(0, 1);
+  std::unique_ptr<Shape> sphere2 =
+      std::make_unique<Sphere>(Point3f(-3, 0, -3), 1);
+  std::unique_ptr<Shape> ground =
+      std::make_unique<Sphere>(Point3f(0, -102, 0), 100);
 
   Scene scene;
-  scene.addShape(sphere);
+  scene.addShape(sphere1);
+  scene.addShape(sphere2);
+  scene.addShape(ground);
   scene.setCamera(camera);
   scene.setIntegrator(normalIntegrator);
 

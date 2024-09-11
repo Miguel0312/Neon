@@ -158,7 +158,7 @@ unsigned int Visualizer::compileProgram(const std::string &vertShaderPath,
   glAttachShader(program, fShader);
   glLinkProgram(program);
 
-  int success;
+  int success = true;
   char infoLog[512];
   glGetShaderiv(program, GL_LINK_STATUS, &success);
   if (!success) {

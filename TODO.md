@@ -6,9 +6,12 @@
 - [x] Create a scene
 - [x] Create an integrator
 - [x] Create a live visualization of the rendering process
-- [ ] Create a thread pool
+- [x] Create a thread pool
 - [ ] Create the triangle object
 - [ ] Create an acceleration structure
 - [ ] Create a precompiled header
 - [ ] Create a normal class
 - [ ] Implement transformations
+- [ ] Implement anti aliasing
+- [ ] Implement lights
+- [ ] Implement materials and BSDF

@@ -2,6 +2,7 @@
 #include "scene/shape.h"
 #include "utils/color.h"
 #include "utils/image.h"
+#include "utils/threadPool.h"
 #include <iostream>
 #include <memory>
 #include <scene/scene.h>
@@ -46,12 +47,29 @@ void Scene::render() {
   }
   int width = m_camera->getWidth(), height = m_camera->getHeight();
 
-  for (int i = 0; i < height; i++) {
-    for (int j = 0; j < width; j++) {
-      Ray ray = m_camera->getRay(i, j);
-      m_pixels[i][j] = m_integrator->Li(this, ray);
+  ThreadPool threadPool;
+
+  const int step = 32;
+
+  for (int i = 0; i < height; i += step) {
+    for (int j = 0; j < width; j += step) {
+
+      threadPool.queueJob([i, j, width, height, this] {
+        int r = std::min(i + step, height), b = std::min(j + step, width);
+        for (int k = i; k < r; k++) {
+          for (int l = j; l < b; l++) {
+            Ray ray = m_camera->getRay(k, l);
+            m_pixels[k][l] = m_integrator->Li(this, ray);
+          }
+        }
+      });
     }
   }
+
+  while (threadPool.busy())
+    ;
+
+  threadPool.stop();
 
   Neon::createImage(m_filename, m_pixels, width, height);
 

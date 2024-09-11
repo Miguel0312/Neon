@@ -26,7 +26,6 @@ bool Sphere::intersect(const Ray &r, const Intervalf &tInterval,
   }
 
   val = (-b + delta) / 2 * a;
-  std::cout << val << std::endl;
   if (tInterval.contains(val)) {
     if (t) {
       *t = val;
