@@ -50,7 +50,5 @@ int main() {
 
   visualizer.render();
 
-  // scene.render();
-
   return 0;
 }
