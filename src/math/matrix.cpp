@@ -1,6 +1,7 @@
 #include "math/matrix.h"
 
 namespace Neon {
+// TODO: put these methods on the transform class
 Vector3f operator*(const SquareMatrix<4> &m, const Vector3f &v) {
   Vector3f res(0);
   // Ignore the last colum because vectors can't be translated

@@ -8,12 +8,13 @@
 - [x] Create a live visualization of the rendering process
 - [x] Create a thread pool
 - [x] Implement a sampling util
+- [x] Add matrices to the engine
+- [x] Implement transformations
 - [ ] Implement materials and BSDF
 - [ ] Create an acceleration structure
 - [ ] Create the triangle object
 - [ ] Create a precompiled header
 - [ ] Create a normal class
-- [ ] Implement transformations
 - [ ] Implement anti aliasing
 - [ ] Implement lights
 - [ ] Import meshes

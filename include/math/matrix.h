@@ -1,5 +1,5 @@
 #ifndef NEON_MATRIX_H
-#define NEON_MATRI_H
+#define NEON_MATRIX_H
 
 #include "math/point.h"
 #include "math/vector.h"
@@ -74,7 +74,7 @@ private:
   float m_data[N][N];
 };
 
-template <unsigned int N> SquareMatrix<N> transpose(const SquareMatrix<N> &m) {
+template <unsigned int N> SquareMatrix<N> Transpose(const SquareMatrix<N> &m) {
   float newData[N][N];
   for (unsigned int i = 0; i < N; i++) {
     for (unsigned int j = 0; j < N; j++) {
@@ -85,9 +85,9 @@ template <unsigned int N> SquareMatrix<N> transpose(const SquareMatrix<N> &m) {
   return SquareMatrix<N>(newData);
 }
 
-template <unsigned int N> float determinant(const SquareMatrix<N> &m);
+template <unsigned int N> float Determinant(const SquareMatrix<N> &m);
 
-template <unsigned int N> float determinant(const SquareMatrix<N> &m) {
+template <unsigned int N> float Determinant(const SquareMatrix<N> &m) {
   SquareMatrix<N - 1> sub;
   float det = 0;
   // Inefficient, but we don't currently use N>4 anyway..
@@ -103,12 +103,12 @@ template <unsigned int N> float determinant(const SquareMatrix<N> &m) {
   return det;
 }
 
-template <> inline float determinant(const SquareMatrix<1> &m) {
+template <> inline float Determinant(const SquareMatrix<1> &m) {
   return m.at(0, 0);
 }
 
 template <unsigned int N>
-inline SquareMatrix<N> inverse(const SquareMatrix<N> &m) {
+inline SquareMatrix<N> Inverse(const SquareMatrix<N> &m) {
   int indxc[N], indxr[N];
   int ipiv[N] = {0};
   float minv[N][N];
