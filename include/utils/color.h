@@ -15,6 +15,10 @@ struct Color {
   Color operator+(const Color &other) const {
     return Color(r + other.r, g + other.g, b + other.b);
   }
+
+  Color operator*(const Color &other) const {
+    return Color(r * other.r, g * other.g, b * other.b);
+  }
 };
 
 inline Color operator*(float t, const Color &color) { return color * t; }

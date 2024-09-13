@@ -47,12 +47,12 @@ Transform Rotate(const Vector3f &axis, float theta);
 Transform Rotate(const Vector3f &axis, float cosTheta, float sinTheta);
 
 // from and to must be normalized
-Transform RotateFromTo(Vector3f &from, const Vector3f &to);
+Transform RotateFromTo(const Vector3f &from, const Vector3f &to);
 
 // Utility class to transform from one frame of reference to another
 class Frame final {
 public:
-  Frame() = delete;
+  Frame() = default;
 
   // The direct transfortation of transform should be from world to local space
   Frame(const Transform &transform) : m_transform(transform) {}

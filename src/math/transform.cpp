@@ -152,8 +152,8 @@ Transform Rotate(const Vector3f &axis, float cosTheta, float sinTheta) {
   return Transform(dirMat, Transpose(dirMat));
 }
 
-Transform RotateFromTo(Vector3f &from, const Vector3f &to) {
-  // Implemetation taken from the PBRT book - 4th edition
+Transform RotateFromTo(const Vector3f &from, const Vector3f &to) {
+  // Implementation taken from the PBRT book - 4th edition
   // Uses the Householder matrix
   Vector3f refl;
   if (std::abs(from.x()) < 0.72f && std::abs(to.x()) < 0.72f)

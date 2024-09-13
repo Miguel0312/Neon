@@ -1,14 +1,16 @@
 #ifndef NEON_SPHERE_H
 #define NEON_SPHERE_H
 
+#include "reflection/bsdf.h"
 #include "shape.h"
 
 namespace Neon {
 class Sphere final : public Shape {
 public:
-  Sphere() : m_center(0), m_radius(1){};
-  Sphere(const Point3f &center, float radius)
-      : m_center(center), m_radius(radius) {}
+  Sphere(BSDF *bsdf) : Shape(bsdf), m_center(0), m_radius(1){};
+
+  Sphere(const Point3f &center, float radius, BSDF *bsdf)
+      : Shape(bsdf), m_center(center), m_radius(radius) {}
 
   virtual ~Sphere() = default;
 

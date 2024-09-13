@@ -3,20 +3,31 @@
 
 #include "math/interval.h"
 #include "math/ray.h"
+#include "reflection/bsdf.h"
+#include <memory>
 namespace Neon {
+class Shape;
+
 struct ShapeIntersectionRecord {
   // TODO: create a normal class
   Vector3f n;
   Point3f p;
   float t;
+  const Shape *shape;
+  Frame frame;
 
   ShapeIntersectionRecord() : n(0), p(0), t(0) {}
 };
 
 class Shape {
 public:
-  Shape() = default;
+  Shape() = delete;
+
+  Shape(BSDF *bsdf) : m_bsdf(bsdf) {}
+
   virtual ~Shape() = default;
+
+  const BSDF *getBSDF() const { return m_bsdf; }
 
   // Returns true if and only if the ray colides with the shape with t in the
   // interval [minT, maxT]
@@ -30,6 +41,10 @@ public:
   // interval [minT, maxT] and fills rec with the necessary information
   virtual bool intersect(const Ray &r, const Intervalf &tInterval,
                          ShapeIntersectionRecord &rec) const = 0;
+
+private:
+  // TODO: maybe create a mesh class with this info
+  BSDF *m_bsdf;
 };
 } // namespace Neon
 

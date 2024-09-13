@@ -10,7 +10,7 @@
 - [x] Implement a sampling util
 - [x] Add matrices to the engine
 - [x] Implement transformations
-- [ ] Implement materials and BSDF
+- [x] Implement materials and BSDF
 - [ ] Create an acceleration structure
 - [ ] Create the triangle object
 - [ ] Create a precompiled header
@@ -18,5 +18,5 @@
 - [ ] Implement anti aliasing
 - [ ] Implement lights
 - [ ] Import meshes
-- [ ] Implement anti-aliasing
+- [ ] Implement anti-aliasing / multi-sampling
 - [ ] Implement other types of samplers (metropolis, stratified, etc.)

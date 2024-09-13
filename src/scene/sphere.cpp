@@ -1,3 +1,4 @@
+#include "math/transform.h"
 #include <cmath>
 #include <iostream>
 #include <scene/sphere.h>
@@ -45,6 +46,7 @@ bool Sphere::intersect(const Ray &r, const Intervalf &tInterval,
 
   rec.p = r(rec.t);
   rec.n = (rec.p - m_center) / m_radius;
+  rec.shape = this;
   // If t > -b / 2 * a, we need to flip the normal
   Vector3f v = r.origin - m_center;
   const float a = 1;
@@ -52,6 +54,8 @@ bool Sphere::intersect(const Ray &r, const Intervalf &tInterval,
   if (rec.t > -b / 2 * a) {
     rec.n *= -1;
   }
+  
+  rec.frame = Frame(RotateFromTo(rec.n, Vector3f(0, 0, 1)));
 
   return true;
 }
