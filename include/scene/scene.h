@@ -30,6 +30,8 @@ public:
 
   void setFilename(const std::string &filename);
 
+  void setSampleCount(int sampleCount) { m_sampleCount = sampleCount; }
+
   bool rayIntersection(const Ray &r, ShapeIntersectionRecord &rec);
 
   void render();
@@ -41,6 +43,7 @@ private:
   std::unique_ptr<Sampler> m_sampler;
   std::string m_filename = "images/test.png";
   std::vector<std::vector<Neon::Color>> m_pixels;
+  int m_sampleCount = 64;
 };
 } // namespace Neon
 

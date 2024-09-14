@@ -1,11 +1,9 @@
 #include "scene/integrators/whittedIntegrator.h"
 #include "math/transform.h"
-#include "math/vector.h"
 #include "reflection/bsdf.h"
 #include "scene/scene.h"
 #include "scene/shape.h"
 #include "utils/color.h"
-#include <iostream>
 
 namespace Neon {
 Color WhittedIntegrator::Li(Scene *scene, const Ray &r, Sampler *sampler) {
@@ -14,11 +12,6 @@ Color WhittedIntegrator::Li(Scene *scene, const Ray &r, Sampler *sampler) {
 
 Color WhittedIntegrator::Li(Scene *scene, const Ray &r, Sampler *sampler,
                             int depth) {
-  static int maxDepth = 0;
-  if (depth > maxDepth) {
-    std::cout << depth << std::endl;
-    maxDepth = depth;
-  }
   if (depth >= m_maxDepth) {
     return Color(0);
   }

@@ -11,12 +11,12 @@
 - [x] Add matrices to the engine
 - [x] Implement transformations
 - [x] Implement materials and BSDF
+- [x] Implement anti-aliasing
 - [ ] Create an acceleration structure
 - [ ] Create the triangle object
 - [ ] Create a precompiled header
 - [ ] Create a normal class
-- [ ] Implement anti aliasing
 - [ ] Implement lights
 - [ ] Import meshes
-- [ ] Implement anti-aliasing / multi-sampling
+- [ ] Create a way to parse a scene description without needing to recompile the program
 - [ ] Implement other types of samplers (metropolis, stratified, etc.)

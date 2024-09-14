@@ -33,14 +33,14 @@ int main() {
   Lambertian basicMaterial(Color(0.5, 0.5, 0.5));
 
   std::unique_ptr<Shape> sphere1 =
-      std::make_unique<Sphere>(0, 1, &basicMaterial);
+      std::make_unique<Sphere>(Point3f(0, 0, 0), 1, &basicMaterial);
   std::unique_ptr<Shape> sphere2 =
       std::make_unique<Sphere>(Point3f(-5, -5, -3), 1, &basicMaterial);
   std::unique_ptr<Shape> ground =
-      std::make_unique<Sphere>(Point3f(0, -102, 0), 100, &basicMaterial);
+      std::make_unique<Sphere>(Point3f(0, -101, 0), 100, &basicMaterial);
 
   Scene scene;
-  scene.addShape(sphere2);
+  // scene.addShape(sphere2);
   /*for (int i = 0; i < 100; i++) {
     std::unique_ptr<Shape> sphere = std::make_unique<Sphere>(
         Point3f(-5 + i % 10, -5 + i / 10, 0), 0.5, &basicMaterial);
@@ -52,6 +52,7 @@ int main() {
   scene.setCamera(camera);
   scene.setIntegrator(integrator);
   scene.setSampler(sampler);
+  scene.setSampleCount(64);
 
   Visualizer visualizer(&scene);
 

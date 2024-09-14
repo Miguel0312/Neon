@@ -1,14 +1,21 @@
 #include "scene/camera.h"
+#include "math/vector.h"
 #include <cmath>
 
 namespace Neon {
-Ray Camera::getRay(unsigned int i, unsigned int j) {
+Ray Camera::getRay(unsigned int i, unsigned int j, const Point2f &sample) {
   if (!m_computed) {
     prepareForRender();
   }
 
-  return Ray(m_center,
-             (m_topLeftVector + i * m_deltaV + j * m_deltaU).normalize());
+  Vector3f pixelCenter = m_topLeftVector + i * m_deltaV + j * m_deltaU;
+  // Transform the sample from the interval [0,1]^2 to [-0.5,0.5]^2
+  Point2f sampleNormalized = sample - Point2f(0.5f, 0.5f);
+
+  Vector3f dir = pixelCenter + sampleNormalized.x() * m_deltaV +
+                 sampleNormalized.y() * m_deltaU;
+
+  return Ray(m_center, dir.normalize());
 }
 
 void Camera::prepareForRender() {

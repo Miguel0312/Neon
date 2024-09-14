@@ -12,7 +12,7 @@ public:
 
   // Returns a ray starting from the camera center and passing by the (i,j)
   // pixel in the viewport
-  Ray getRay(unsigned int i, unsigned int j);
+  Ray getRay(unsigned int i, unsigned int j, const Point2f &sample);
 
   inline void setWidth(unsigned int width) { m_width = width; }
 

@@ -12,8 +12,18 @@ struct Color {
 
   Color operator*(float t) const { return Color(t * r, t * g, t * b); }
 
+  Color operator/(float t) const { return (*this) * (1 / t); }
+
   Color operator+(const Color &other) const {
     return Color(r + other.r, g + other.g, b + other.b);
+  }
+
+  Color &operator+=(const Color &other) {
+    r += other.r;
+    g += other.g;
+    b += other.b;
+
+    return *this;
   }
 
   Color operator*(const Color &other) const {

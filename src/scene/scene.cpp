@@ -70,8 +70,12 @@ void Scene::render() {
         int r = std::min(i + step, height), b = std::min(j + step, width);
         for (int k = i; k < r; k++) {
           for (int l = j; l < b; l++) {
-            Ray ray = m_camera->getRay(k, l);
-            m_pixels[k][l] = m_integrator->Li(this, ray, sampler.get());
+            Color result(0);
+            for (int m = 0; m < m_sampleCount; m++) {
+              Ray ray = m_camera->getRay(k, l, sampler->next2D());
+              result += m_integrator->Li(this, ray, sampler.get());
+            }
+            m_pixels[k][l] = result / m_sampleCount;
           }
         }
       });
