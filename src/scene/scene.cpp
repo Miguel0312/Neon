@@ -1,3 +1,4 @@
+#include "scene/accelerators/accelerator.h"
 #include "scene/integrators/integrator.h"
 #include "scene/shape.h"
 #include "utils/color.h"
@@ -9,6 +10,7 @@
 
 namespace Neon {
 void Scene::addShape(std::unique_ptr<Shape> &shape) {
+  m_box = m_box.merge(shape->getBoundingBox());
   m_shapes.push_back(std::move(shape));
 }
 
@@ -26,19 +28,15 @@ void Scene::setSampler(std::unique_ptr<Sampler> &sampler) {
   m_sampler = std::move(sampler);
 }
 
+void Scene::setAccelerator(std::unique_ptr<Accelerator> &accelerator) {
+  m_accelerator = std::move(accelerator);
+  m_accelerator->setScene(this);
+}
+
 void Scene::setFilename(const std::string &filename) { m_filename = filename; }
 
 bool Scene::rayIntersection(const Ray &r, ShapeIntersectionRecord &rec) {
-  bool result = false;
-  Intervalf tInterval(0.1, 100);
-  for (auto &shape : m_shapes) {
-    if (shape->intersect(r, tInterval, rec)) {
-      tInterval.setMax(rec.t);
-      result = true;
-    }
-  }
-
-  return result;
+  return m_accelerator->rayIntersection(r, rec);
 }
 
 void Scene::render() {
@@ -54,6 +52,11 @@ void Scene::render() {
     std::cout << "ERROR: Sampler was not set" << std::endl;
     return;
   }
+  if (!m_accelerator) {
+    std::cout << "ERROR: Accelerator was not set" << std::endl;
+    return;
+  }
+  m_accelerator->preprocess();
   int width = m_camera->getWidth(), height = m_camera->getHeight();
 
   ThreadPool threadPool;

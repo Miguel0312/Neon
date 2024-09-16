@@ -46,7 +46,7 @@ public:
   // Returns the intersection of two intervals
   Interval<T> intersection(const Interval<T> &interval) const {
     return Interval<T>(std::max(m_min, interval.m_min),
-                       std::min(m_min, interval.m_min));
+                       std::min(m_max, interval.m_max));
   }
 
   // Returns wether or not the two intervals have a common point
@@ -54,8 +54,8 @@ public:
     return !(m_max <= interval.m_min || m_min >= interval.m_max);
   }
 
-  // Returns true if the interval is not empty (m_min <= m_max)
-  bool empty() const { return m_min <= m_max; }
+  // Returns true if the interval is empty (m_min > m_max)
+  bool empty() const { return m_min > m_max; }
 
   void setMax(T max) { m_max = max; }
 

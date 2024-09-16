@@ -1,6 +1,7 @@
 #ifndef NEON_SHAPE_H
 #define NEON_SHAPE_H
 
+#include "math/boundingBox.h"
 #include "math/interval.h"
 #include "math/ray.h"
 #include "reflection/bsdf.h"
@@ -42,9 +43,13 @@ public:
   virtual bool intersect(const Ray &r, const Intervalf &tInterval,
                          ShapeIntersectionRecord &rec) const = 0;
 
-private:
+  const BoundingBox &getBoundingBox() const { return m_box; }
+
+protected:
   // TODO: maybe create a mesh class with this info
   BSDF *m_bsdf;
+
+  BoundingBox m_box;
 };
 } // namespace Neon
 
