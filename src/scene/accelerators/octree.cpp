@@ -72,7 +72,7 @@ void Octree::buildChildren(OctreeNode *parent,
 }
 
 bool Octree::rayIntersection(const Ray &r, ShapeIntersectionRecord &rec) {
-  Intervalf tInterval(0.1, 100);
+  Intervalf tInterval(1e-5, 100);
   return rayIntersection(r, rec, tInterval, &m_root);
 }
 

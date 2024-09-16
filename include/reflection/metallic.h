@@ -1,16 +1,16 @@
-#ifndef NEON_LAMBERTIAN_H
-#define NEON_LAMBERTIAN_H
+#ifndef NEON_METALLIC_H
+#define NEON_METALLIC_H
 
 #include "bsdf.h"
 
 namespace Neon {
-class Lambertian final : public BSDF {
+class Metallic final : public BSDF {
 public:
-  Lambertian() = delete;
+  Metallic() = delete;
 
-  Lambertian(Color albedo) : m_albedo(albedo) {}
+  Metallic(Color albedo) : m_albedo(albedo) {}
 
-  ~Lambertian() = default;
+  ~Metallic() = default;
 
   Color sample(BSDFQueryRecord &query, Sampler *sampler) const override;
 

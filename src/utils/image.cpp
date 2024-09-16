@@ -1,3 +1,4 @@
+#include <cmath>
 #include <filesystem>
 #include <thirdparty/stb/stb_image_write.h>
 #include <utils/image.h>
@@ -30,9 +31,12 @@ void colorToBytes(const std::vector<std::vector<Color>> &color,
   bytes.resize(3 * color.size() * color[0].size());
   for (unsigned int i = 0; i < height; i++) {
     for (unsigned int j = 0; j < width; j++) {
-      bytes[3 * (i * width + j) + 0] = int(255.999 * color[i][j].r);
-      bytes[3 * (i * width + j) + 1] = int(255.999 * color[i][j].g);
-      bytes[3 * (i * width + j) + 2] = int(255.999 * color[i][j].b);
+      // The square root operation allows us to do gamma correction
+      // The most important is that it gives a better resolution to darker
+      // colors
+      bytes[3 * (i * width + j) + 0] = int(255.999 * std::sqrt(color[i][j].r));
+      bytes[3 * (i * width + j) + 1] = int(255.999 * std::sqrt(color[i][j].g));
+      bytes[3 * (i * width + j) + 2] = int(255.999 * std::sqrt(color[i][j].b));
     }
   }
 }

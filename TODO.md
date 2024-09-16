@@ -13,14 +13,15 @@
 - [x] Implement materials and BSDF
 - [x] Implement anti-aliasing
 - [x] Create an acceleration structure
-- [ ] Create the triangle object
+- [x] Create the triangle object
+- [x] Implement metallic material
+- [ ] Check the need for gamma correction
+- [ ] Implement lights
 - [ ] Implement defocus blur
 - [ ] Import meshes
 - [ ] Add lights
 - [ ] Create a precompiled header
 - [ ] Create a normal class
-- [ ] Implement lights
 - [ ] Create a way to parse a scene description without needing to recompile the program
-- [ ] Check the need for gamma correction
 - [ ] Implement other BSDF (metalic, diffractive, texture mapping, etc.)
 - [ ] Implement other types of samplers (metropolis, stratified, etc.)

@@ -17,6 +17,7 @@ add_executable(neon src/main.cpp
   src/math/matrix.cpp
   src/math/transform.cpp
   src/reflection/lambertian.cpp
+  src/reflection/metallic.cpp
   src/scene/accelerators/octree.cpp
   src/scene/camera.cpp
   src/scene/integrators/normalIntegrator.cpp
