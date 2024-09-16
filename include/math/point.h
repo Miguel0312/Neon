@@ -111,7 +111,7 @@ public:
 
   Point<T, D> operator-(const Vector<T, D> &v) const { return *this + (-v); }
 
-  Point<T, D> operator-(const Point<T, D> &v) const { return *this + (-v); }
+  Vector<T, D> operator-(const Point<T, D> &v) const { return *this + (-v); }
 
   Point<T, D> &operator-=(const Vector<T, D> &v) {
     for (int i = 0; i < D; i++) {

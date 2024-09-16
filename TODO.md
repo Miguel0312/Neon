@@ -12,11 +12,15 @@
 - [x] Implement transformations
 - [x] Implement materials and BSDF
 - [x] Implement anti-aliasing
-- [ ] Create an acceleration structure
+- [x] Create an acceleration structure
 - [ ] Create the triangle object
+- [ ] Implement defocus blur
+- [ ] Import meshes
+- [ ] Add lights
 - [ ] Create a precompiled header
 - [ ] Create a normal class
 - [ ] Implement lights
-- [ ] Import meshes
 - [ ] Create a way to parse a scene description without needing to recompile the program
+- [ ] Check the need for gamma correction
+- [ ] Implement other BSDF (metalic, diffractive, texture mapping, etc.)
 - [ ] Implement other types of samplers (metropolis, stratified, etc.)

@@ -7,6 +7,7 @@
 #include "scene/scene.h"
 #include "scene/shape.h"
 #include "scene/sphere.h"
+#include "scene/triangle.h"
 #include "utils/sampling/independentSampler.h"
 #include "utils/visualizer.h"
 #include <math/vector.h>
@@ -35,23 +36,12 @@ int main() {
 
   std::unique_ptr<Accelerator> accelerator = std::make_unique<Octree>();
 
-  std::unique_ptr<Shape> sphere1 =
-      std::make_unique<Sphere>(Point3f(0, 0, 0), 1, &basicMaterial);
-  std::unique_ptr<Shape> sphere2 =
-      std::make_unique<Sphere>(Point3f(-5, -5, -3), 1, &basicMaterial);
-  std::unique_ptr<Shape> ground =
-      std::make_unique<Sphere>(Point3f(0, -101, 0), 100, &basicMaterial);
-
+  std::unique_ptr<Shape> triangle1 = std::make_unique<Triangle>(
+      Point3f(0, 0, 0), Point3f(1, 0, 0), Point3f(0, 1, 0), &basicMaterial);
   Scene scene;
-  // scene.addShape(sphere2);
-  for (int i = 0; i < 100; i++) {
-    std::unique_ptr<Shape> sphere = std::make_unique<Sphere>(
-        Point3f(-5 + i % 10, -5 + i / 10, 0), 0.5, &basicMaterial);
-    scene.addShape(sphere);
-  }
 
-  // scene.addShape(sphere1);
-  // scene.addShape(ground);
+  scene.addShape(triangle1);
+
   scene.setCamera(camera);
   scene.setIntegrator(integrator);
   scene.setSampler(sampler);

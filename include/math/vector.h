@@ -6,6 +6,8 @@
 #include <ostream>
 
 namespace Neon {
+template <typename T, unsigned int D> class Point;
+
 template <typename T, unsigned int D> class Vector {
 public:
   Vector(T x = 0) {
@@ -95,6 +97,19 @@ public:
       m_data[i] -= other.m_data[i];
     }
     return *this;
+  }
+
+  operator Point<T, D>() {
+    switch (D) {
+    case 2:
+      return Point<T, D>(m_data[0], m_data[1]);
+    case 3:
+      return Point<T, D>(m_data[0], m_data[1], m_data[2]);
+    case 4:
+      return Point<T, D>(m_data[0], m_data[1], m_data[2], m_data[3]);
+    default:
+      return Point<T, D>(m_data[0]);
+    }
   }
 
   template <typename U> Vector<T, D> operator*(U t) const {

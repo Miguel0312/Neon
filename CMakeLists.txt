@@ -23,6 +23,7 @@ add_executable(neon src/main.cpp
   src/scene/integrators/whittedIntegrator.cpp
   src/scene/scene.cpp
   src/scene/sphere.cpp
+  src/scene/triangle.cpp
   src/utils/color.cpp
   src/utils/image.cpp
   src/utils/sampling/independentSampler.cpp
