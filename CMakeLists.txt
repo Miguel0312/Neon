@@ -29,6 +29,7 @@ add_executable(neon src/main.cpp
   src/scene/triangle.cpp
   src/utils/color.cpp
   src/utils/image.cpp
+  src/utils/sampling/discretePDF.cpp
   src/utils/sampling/independentSampler.cpp
   src/utils/sampling/warp.cpp
   src/utils/threadPool.cpp

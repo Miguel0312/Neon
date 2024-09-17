@@ -14,6 +14,10 @@ void Scene::addShape(std::unique_ptr<Shape> &shape) {
   m_shapes.push_back(std::move(shape));
 }
 
+void Scene::addLight(std::unique_ptr<Light> &light) {
+  m_lights.push_back(std::move(light));
+}
+
 void Scene::setCamera(std::unique_ptr<Camera> &camera) {
   m_camera = std::move(camera);
   m_pixels = std::vector<std::vector<Neon::Color>>(
@@ -33,10 +37,6 @@ void Scene::setAccelerator(std::unique_ptr<Accelerator> &accelerator) {
   m_accelerator->setScene(this);
 }
 
-void Scene::setLight(std::unique_ptr<Light> &light) {
-  m_light = std::move(light);
-}
-
 void Scene::setFilename(const std::string &filename) { m_filename = filename; }
 
 bool Scene::rayIntersection(const Ray &r, ShapeIntersectionRecord &rec) {
@@ -44,7 +44,8 @@ bool Scene::rayIntersection(const Ray &r, ShapeIntersectionRecord &rec) {
 }
 
 Color Scene::sampleLight(LightSampleRecord &rec, Sampler *sampler) const {
-  return m_light->sample(rec, sampler);
+  int index = m_lightDistribution.sample(sampler->next1D());
+  return m_lights[index]->sample(this, rec, sampler);
 }
 
 void Scene::render() {
@@ -66,6 +67,12 @@ void Scene::render() {
   }
   m_accelerator->preprocess();
   int width = m_camera->getWidth(), height = m_camera->getHeight();
+
+  for (auto &light : m_lights) {
+    float pdf = light->getPDF();
+    m_lightDistribution.add(pdf);
+    m_lightPDFSum += pdf;
+  }
 
   ThreadPool threadPool;
 

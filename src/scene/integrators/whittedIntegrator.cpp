@@ -25,7 +25,7 @@ Color WhittedIntegrator::Li(Scene *scene, const Ray &r, Sampler *sampler,
   if (intersectionRec.shape->isLight()) {
     LightSampleRecord lightRec;
     lightRec.p = intersectionRec.p;
-    return intersectionRec.shape->getLight()->eval(lightRec);
+    return intersectionRec.shape->getLight()->eval(scene, lightRec);
   }
 
   LightSampleRecord lightRec;
@@ -49,6 +49,6 @@ Color WhittedIntegrator::Li(Scene *scene, const Ray &r, Sampler *sampler,
 
   float g = -intersectionRec.n.dot(lightDir) * lightRec.n.dot(lightDir);
 
-  return g * color * lightColor / dist;
+  return g * color * lightColor / (dist * lightRec.pdf);
 }
 } // namespace Neon

@@ -6,6 +6,7 @@
 #include "scene/integrators/integrator.h"
 #include "scene/lights/light.h"
 #include "scene/shape.h"
+#include "utils/sampling/discretePDF.h"
 #include "utils/sampling/sampler.h"
 #include <memory>
 #include <vector>
@@ -17,6 +18,8 @@ public:
   ~Scene() = default;
 
   void addShape(std::unique_ptr<Shape> &shape);
+
+  void addLight(std::unique_ptr<Light> &light);
 
   const std::unique_ptr<Camera> &getCamera() const { return m_camera; }
 
@@ -31,8 +34,6 @@ public:
   void setSampler(std::unique_ptr<Sampler> &sampler);
 
   void setAccelerator(std::unique_ptr<Accelerator> &accelerator);
-
-  void setLight(std::unique_ptr<Light> &light);
 
   void setFilename(const std::string &filename);
 
@@ -49,6 +50,8 @@ public:
 
   Color sampleLight(LightSampleRecord &rec, Sampler *sampler) const;
 
+  float getLightPDFSum() const { return m_lightPDFSum; }
+
   void render();
 
 private:
@@ -57,11 +60,14 @@ private:
   std::unique_ptr<Integrator> m_integrator;
   std::unique_ptr<Sampler> m_sampler;
   std::unique_ptr<Accelerator> m_accelerator;
-  std::unique_ptr<Light> m_light;
+  std::vector<std::unique_ptr<Light>> m_lights;
   std::string m_filename = "images/test.png";
   std::vector<std::vector<Neon::Color>> m_pixels;
   int m_sampleCount = 64;
   BoundingBox m_box;
+
+  DiscretePDF m_lightDistribution;
+  float m_lightPDFSum = 0;
 };
 } // namespace Neon
 

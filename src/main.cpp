@@ -41,6 +41,7 @@ int main() {
   Lambertian centerMaterial = Lambertian(Color(0.1, 0.2, 0.5));
   Metallic leftMaterial = Metallic(Color(0.8, 0.8, 0.8));
   Metallic rightMaterial = Metallic(Color(0.8, 0.6, 0.2));
+  Metallic lightMaterial = Metallic(Color(1.0, 1.0, 1.0f));
 
   std::unique_ptr<Shape> sphere1 =
       std::make_unique<Sphere>(Point3f(0, 0, -0.2), 0.5f, &centerMaterial);
@@ -50,29 +51,35 @@ int main() {
       std::make_unique<Sphere>(Point3f(1, 0, 0.0), 0.5f, &rightMaterial);
   std::unique_ptr<Shape> ground = std::make_unique<Sphere>(
       Point3f(0, -100.5, 0.0), 100.0f, &groundMaterial);
-  std::unique_ptr<Shape> lightSphere =
-      std::make_unique<Sphere>(Point3f(0, 1, 0.2), 0.5f, &groundMaterial);
+  std::unique_ptr<Shape> lightSphere1 =
+      std::make_unique<Sphere>(Point3f(-1, 1, 0.2), 0.3f, &lightMaterial);
+  std::unique_ptr<Shape> lightSphere2 =
+      std::make_unique<Sphere>(Point3f(1.5, 1, 0.2), 0.3f, &groundMaterial);
   std::unique_ptr<Shape> triangle = std::make_unique<Triangle>(
       Point3f(0.0f, -1.0f, 0.0f), Point3f(0.0f, 0.0f, 0.0f),
       Point3f(1.0f, -1.0f, 1.0f), &groundMaterial);
 
-  std::unique_ptr<Light> light =
-      std::make_unique<AreaLight>(lightSphere.get(), Color(1.0f));
+  std::unique_ptr<Light> light1 =
+      std::make_unique<AreaLight>(lightSphere1.get(), Color(1.0f));
+  std::unique_ptr<Light> light2 =
+      std::make_unique<AreaLight>(lightSphere2.get(), Color(1.0f));
 
   Scene scene;
 
-  // scene.addShape(sphere1);
-  // scene.addShape(sphere2);
-  // scene.addShape(sphere3);
+  scene.addShape(sphere1);
+  scene.addShape(sphere2);
+  scene.addShape(sphere3);
   scene.addShape(ground);
   //  scene.addShape(triangle);
-  scene.addShape(lightSphere);
+  scene.addShape(lightSphere1);
+  scene.addShape(lightSphere2);
 
   scene.setCamera(camera);
   scene.setIntegrator(integrator);
   scene.setSampler(sampler);
   scene.setAccelerator(accelerator);
-  scene.setLight(light);
+  scene.addLight(light1);
+  scene.addLight(light2);
   scene.setSampleCount(1024);
 
   Visualizer visualizer(&scene);

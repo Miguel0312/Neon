@@ -14,9 +14,12 @@ public:
 
   ~AreaLight() = default;
 
-  Color sample(LightSampleRecord &rec, Sampler *sampler) const override;
+  Color sample(const Scene *scene, LightSampleRecord &rec,
+               Sampler *sampler) const override;
 
-  Color eval(LightSampleRecord &rec) const override;
+  Color eval(const Scene *scene, LightSampleRecord &rec) const override;
+
+  float getPDF() const override;
 
 private:
   Shape *m_shape;
