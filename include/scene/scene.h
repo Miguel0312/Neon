@@ -4,6 +4,7 @@
 #include "scene/accelerators/accelerator.h"
 #include "scene/camera.h"
 #include "scene/integrators/integrator.h"
+#include "scene/lights/light.h"
 #include "scene/shape.h"
 #include "utils/sampling/sampler.h"
 #include <memory>
@@ -31,10 +32,13 @@ public:
 
   void setAccelerator(std::unique_ptr<Accelerator> &accelerator);
 
+  void setLight(std::unique_ptr<Light> &light);
+
   void setFilename(const std::string &filename);
 
   void setSampleCount(int sampleCount) { m_sampleCount = sampleCount; }
 
+  // TODO: add a shadow ray option
   bool rayIntersection(const Ray &r, ShapeIntersectionRecord &rec);
 
   const std::vector<std::unique_ptr<Shape>> &getShapes() const {
@@ -42,6 +46,8 @@ public:
   }
 
   const BoundingBox &getBoundingBox() const { return m_box; }
+
+  Color sampleLight(LightSampleRecord &rec, Sampler *sampler) const;
 
   void render();
 
@@ -51,6 +57,7 @@ private:
   std::unique_ptr<Integrator> m_integrator;
   std::unique_ptr<Sampler> m_sampler;
   std::unique_ptr<Accelerator> m_accelerator;
+  std::unique_ptr<Light> m_light;
   std::string m_filename = "images/test.png";
   std::vector<std::vector<Neon::Color>> m_pixels;
   int m_sampleCount = 64;

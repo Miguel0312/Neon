@@ -18,6 +18,12 @@ public:
   bool intersect(const Ray &r, const Intervalf &tInterval,
                  ShapeIntersectionRecord &rec) const override;
 
+  void sample(Point3f &p, Vector3f &n, Sampler *sampler) const override;
+
+  float area() const override;
+
+  Vector3f normalAt(const Point3f &p) const override;
+
 private:
   Point3f m_p1, m_p2, m_p3;
 };

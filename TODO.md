@@ -15,8 +15,10 @@
 - [x] Create an acceleration structure
 - [x] Create the triangle object
 - [x] Implement metallic material
-- [ ] Check the need for gamma correction
+- [x] Check the need for gamma correction
 - [ ] Implement lights
+- [ ] Enable multiple lights on the scene
+- [ ] Add command line options
 - [ ] Implement defocus blur
 - [ ] Import meshes
 - [ ] Add lights

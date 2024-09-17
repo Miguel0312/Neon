@@ -5,12 +5,14 @@
 #include "scene/accelerators/octree.h"
 #include "scene/camera.h"
 #include "scene/integrators/whittedIntegrator.h"
+#include "scene/lights/areaLight.h"
 #include "scene/scene.h"
 #include "scene/shape.h"
 #include "scene/sphere.h"
 #include "scene/triangle.h"
 #include "utils/sampling/independentSampler.h"
 #include "utils/visualizer.h"
+#include <iostream>
 #include <math/vector.h>
 #include <memory>
 #include <utils/color.h>
@@ -48,18 +50,29 @@ int main() {
       std::make_unique<Sphere>(Point3f(1, 0, 0.0), 0.5f, &rightMaterial);
   std::unique_ptr<Shape> ground = std::make_unique<Sphere>(
       Point3f(0, -100.5, 0.0), 100.0f, &groundMaterial);
+  std::unique_ptr<Shape> lightSphere =
+      std::make_unique<Sphere>(Point3f(0, 1, 0.2), 0.5f, &groundMaterial);
+  std::unique_ptr<Shape> triangle = std::make_unique<Triangle>(
+      Point3f(0.0f, -1.0f, 0.0f), Point3f(0.0f, 0.0f, 0.0f),
+      Point3f(1.0f, -1.0f, 1.0f), &groundMaterial);
+
+  std::unique_ptr<Light> light =
+      std::make_unique<AreaLight>(lightSphere.get(), Color(1.0f));
 
   Scene scene;
 
-  scene.addShape(sphere1);
-  scene.addShape(sphere2);
-  scene.addShape(sphere3);
+  // scene.addShape(sphere1);
+  // scene.addShape(sphere2);
+  // scene.addShape(sphere3);
   scene.addShape(ground);
+  //  scene.addShape(triangle);
+  scene.addShape(lightSphere);
 
   scene.setCamera(camera);
   scene.setIntegrator(integrator);
   scene.setSampler(sampler);
   scene.setAccelerator(accelerator);
+  scene.setLight(light);
   scene.setSampleCount(1024);
 
   Visualizer visualizer(&scene);

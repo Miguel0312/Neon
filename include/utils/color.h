@@ -1,6 +1,7 @@
 #ifndef NEON_COLOR_H
 #define NEON_COLOR_H
 
+#include <ostream>
 namespace Neon {
 struct Color {
   // RGB values of the color, should be between 0 and 1
@@ -32,6 +33,11 @@ struct Color {
 };
 
 inline Color operator*(float t, const Color &color) { return color * t; }
+
+inline std::ostream &operator<<(std::ostream &out, const Color &c) {
+  out << '(' << c.r << ", " << c.g << ", " << c.b << ')';
+  return out;
+}
 
 } // namespace Neon
 

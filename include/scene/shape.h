@@ -5,6 +5,7 @@
 #include "math/interval.h"
 #include "math/ray.h"
 #include "reflection/bsdf.h"
+#include "scene/lights/light.h"
 #include <memory>
 namespace Neon {
 class Shape;
@@ -43,6 +44,24 @@ public:
   virtual bool intersect(const Ray &r, const Intervalf &tInterval,
                          ShapeIntersectionRecord &rec) const = 0;
 
+  // Sample a random point on the surface of the shape
+  virtual void sample(Point3f &p, Vector3f &n, Sampler *sampler) const = 0;
+
+  // Get surface area of the shape
+  virtual float area() const = 0;
+
+  // Get the normal to the shape at the given point
+  // Assumes that the point belongs to the surface of the shape
+  virtual Vector3f normalAt(const Point3f &p) const = 0;
+
+  bool isLight() const { return m_isLight; }
+
+  void setIsLight(bool isLight) { m_isLight = isLight; }
+
+  Light *getLight() const { return m_light; }
+
+  void setLight(Light *light) { m_light = light; }
+
   const BoundingBox &getBoundingBox() const { return m_box; }
 
 protected:
@@ -50,6 +69,10 @@ protected:
   BSDF *m_bsdf;
 
   BoundingBox m_box;
+
+  bool m_isLight = false;
+  // TODO: Maybe try to create a light BSDF/material
+  Light *m_light = nullptr;
 };
 } // namespace Neon
 

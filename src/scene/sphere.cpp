@@ -1,6 +1,6 @@
 #include "math/transform.h"
+#include "utils/sampling/warp.h"
 #include <cmath>
-#include <iostream>
 #include <scene/sphere.h>
 
 namespace Neon {
@@ -54,9 +54,22 @@ bool Sphere::intersect(const Ray &r, const Intervalf &tInterval,
   if (rec.t > -b / 2 * a) {
     rec.n *= -1;
   }
-  
+
   rec.frame = Frame(RotateFromTo(rec.n, Vector3f(0, 0, 1)));
 
   return true;
+}
+
+void Sphere::sample(Point3f &p, Vector3f &n, Sampler *sampler) const {
+  Vector3f unitVector = Warp::squareToUniformSphere(sampler->next2D());
+
+  p = m_center + m_radius * unitVector;
+  n = unitVector;
+}
+
+float Sphere::area() const { return 4 * M_PI * m_radius * m_radius; }
+
+Vector3f Sphere::normalAt(const Point3f &p) const {
+  return (p - m_center) / m_radius;
 }
 } // namespace Neon

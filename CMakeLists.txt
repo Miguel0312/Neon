@@ -21,7 +21,9 @@ add_executable(neon src/main.cpp
   src/scene/accelerators/octree.cpp
   src/scene/camera.cpp
   src/scene/integrators/normalIntegrator.cpp
+  src/scene/integrators/whiteBoxIntegrator.cpp
   src/scene/integrators/whittedIntegrator.cpp
+  src/scene/lights/areaLight.cpp
   src/scene/scene.cpp
   src/scene/sphere.cpp
   src/scene/triangle.cpp

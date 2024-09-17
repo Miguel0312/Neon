@@ -72,4 +72,22 @@ bool Triangle::intersect(const Ray &r, const Intervalf &tInterval,
 
   return true;
 }
+
+void Triangle::sample(Point3f &p, Vector3f &n, Sampler *sampler) const {
+  Point2f sample = sampler->next2D();
+  Vector3f v1 = m_p2 - m_p1, v2 = m_p3 - m_p1;
+
+  p = m_p1 + sample.x() * v1 + sample.y() * v2;
+  n = v1.cross(v2).normalized();
+}
+
+float Triangle::area() const {
+  Vector3f v1 = m_p2 - m_p1, v2 = m_p3 - m_p1;
+  return 0.5f * std::abs(v1.dot(v2));
+}
+
+Vector3f Triangle::normalAt(const Point3f &p) const {
+  Vector3f v1 = m_p2 - m_p1, v2 = m_p3 - m_p1;
+  return v1.cross(v2).normalized();
+}
 } // namespace Neon

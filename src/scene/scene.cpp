@@ -33,10 +33,18 @@ void Scene::setAccelerator(std::unique_ptr<Accelerator> &accelerator) {
   m_accelerator->setScene(this);
 }
 
+void Scene::setLight(std::unique_ptr<Light> &light) {
+  m_light = std::move(light);
+}
+
 void Scene::setFilename(const std::string &filename) { m_filename = filename; }
 
 bool Scene::rayIntersection(const Ray &r, ShapeIntersectionRecord &rec) {
   return m_accelerator->rayIntersection(r, rec);
+}
+
+Color Scene::sampleLight(LightSampleRecord &rec, Sampler *sampler) const {
+  return m_light->sample(rec, sampler);
 }
 
 void Scene::render() {
