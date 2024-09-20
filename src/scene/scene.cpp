@@ -74,7 +74,7 @@ void Scene::render() {
     m_lightPDFSum += pdf;
   }
 
-  ThreadPool threadPool;
+  ThreadPool threadPool(m_renderingThreadsCount);
 
   const int step = 64;
 

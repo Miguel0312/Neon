@@ -3,8 +3,10 @@
 #include <utils/threadPool.h>
 
 namespace Neon {
-ThreadPool::ThreadPool() {
-  const unsigned int threadCount = std::thread::hardware_concurrency();
+ThreadPool::ThreadPool()
+    : Neon::ThreadPool(std::thread::hardware_concurrency()) {}
+
+ThreadPool::ThreadPool(unsigned int threadCount) {
   std::cout << "Creating a pool with " << threadCount << " threads\n";
   m_threads.reserve(threadCount);
   for (unsigned int i = 0; i < threadCount; i++) {

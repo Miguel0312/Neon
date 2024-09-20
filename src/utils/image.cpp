@@ -16,7 +16,7 @@ void createImage(const std::string &filename,
   std::vector<unsigned char> data(3 * width * height);
   colorToBytes(pixels, data);
 
-  stbi_write_png("images/test.png", width, height, 3, data.data(), 3 * width);
+  stbi_write_png(filename.c_str(), width, height, 3, data.data(), 3 * width);
 }
 
 // Pass the bytes by reference to limit the amount of alocations

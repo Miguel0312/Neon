@@ -10,9 +10,9 @@
 #include "scene/shape.h"
 #include "scene/sphere.h"
 #include "scene/triangle.h"
+#include "thirdparty/argparse/argparse.h"
 #include "utils/sampling/independentSampler.h"
 #include "utils/visualizer.h"
-#include <iostream>
 #include <math/vector.h>
 #include <memory>
 #include <utils/color.h>
@@ -23,9 +23,13 @@
 
 using namespace Neon;
 
-int main() {
-  std::vector<std::vector<Neon::Color>> pixels(HEIGHT,
-                                               std::vector<Neon::Color>(WIDTH));
+int main(int argc, char *argv[]) {
+  argparse::ArgumentParser argParser("Neon", "0.1.0");
+
+  argParser.add_argument("-o", "--output").default_value("images/image.png");
+  argParser.add_argument("-j").scan<'i', int>();
+
+  argParser.parse_args(argc, argv);
 
   std::unique_ptr<Camera> camera = std::make_unique<Camera>();
   camera->setWidth(WIDTH), camera->setHeight(HEIGHT);
@@ -66,6 +70,13 @@ int main() {
 
   Scene scene;
 
+  if (argParser.is_used("--output")) {
+    scene.setFilename(argParser.get<std::string>("--output"));
+  }
+  if (argParser.is_used("-j")) {
+    scene.setRenderingThreadsCount(argParser.get<int>("-j"));
+  }
+
   scene.addShape(sphere1);
   scene.addShape(sphere2);
   scene.addShape(sphere3);
@@ -80,7 +91,7 @@ int main() {
   scene.setAccelerator(accelerator);
   scene.addLight(light1);
   scene.addLight(light2);
-  scene.setSampleCount(1024);
+  scene.setSampleCount(64);
 
   Visualizer visualizer(&scene);
 

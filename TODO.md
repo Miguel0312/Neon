@@ -16,14 +16,13 @@
 - [x] Create the triangle object
 - [x] Implement metallic material
 - [x] Check the need for gamma correction
-- [ ] Implement lights
-- [ ] Enable multiple lights on the scene
-- [ ] Add command line options
+- [x] Implement lights
+- [x] Enable multiple lights on the scene
+- [x] Add command line options
+- [ ] Create a way to parse a scene description without needing to recompile the program (TOML)
 - [ ] Implement defocus blur
 - [ ] Import meshes
-- [ ] Add lights
 - [ ] Create a precompiled header
 - [ ] Create a normal class
-- [ ] Create a way to parse a scene description without needing to recompile the program
-- [ ] Implement other BSDF (metalic, diffractive, texture mapping, etc.)
+- [ ] Implement other BSDF (diffractive, texture mapping, etc.)
 - [ ] Implement other types of samplers (metropolis, stratified, etc.)

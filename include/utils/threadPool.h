@@ -12,6 +12,8 @@ class ThreadPool final {
 public:
   ThreadPool();
 
+  ThreadPool(unsigned int threadCount);
+
   ~ThreadPool() = default;
 
   void queueJob(const std::function<void()> &job);

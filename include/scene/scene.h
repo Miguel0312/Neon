@@ -9,6 +9,7 @@
 #include "utils/sampling/discretePDF.h"
 #include "utils/sampling/sampler.h"
 #include <memory>
+#include <thread>
 #include <vector>
 namespace Neon {
 class Scene final {
@@ -36,6 +37,10 @@ public:
   void setAccelerator(std::unique_ptr<Accelerator> &accelerator);
 
   void setFilename(const std::string &filename);
+
+  void setRenderingThreadsCount(unsigned int cnt) {
+    m_renderingThreadsCount = cnt;
+  }
 
   void setSampleCount(int sampleCount) { m_sampleCount = sampleCount; }
 
@@ -65,6 +70,8 @@ private:
   std::vector<std::vector<Neon::Color>> m_pixels;
   int m_sampleCount = 64;
   BoundingBox m_box;
+
+  unsigned int m_renderingThreadsCount = std::thread::hardware_concurrency();
 
   DiscretePDF m_lightDistribution;
   float m_lightPDFSum = 0;
