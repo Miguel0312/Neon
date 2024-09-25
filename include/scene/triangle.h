@@ -10,6 +10,8 @@ class Triangle final : public Shape {
 public:
   Triangle(const Point3f &p1, const Point3f &p2, const Point3f &p3, BSDF *bsdf);
 
+  Triangle(const toml::table *table);
+
   ~Triangle() = default;
 
   bool intersect(const Ray &r, const Intervalf &tInterval,

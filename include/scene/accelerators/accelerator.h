@@ -3,11 +3,12 @@
 
 #include "math/ray.h"
 #include "scene/shape.h"
+#include "utils/objectFactory.h"
 
 namespace Neon {
 class Scene;
 
-class Accelerator {
+class Accelerator : public NeonObject {
 public:
   Accelerator() : m_scene(nullptr) {}
 

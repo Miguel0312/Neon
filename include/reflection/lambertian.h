@@ -8,6 +8,8 @@ class Lambertian final : public BSDF {
 public:
   Lambertian() = delete;
 
+  Lambertian(const toml::table *table);
+
   Lambertian(Color albedo) : m_albedo(albedo) {}
 
   ~Lambertian() = default;

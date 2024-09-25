@@ -7,6 +7,10 @@
 #include <iostream>
 
 namespace Neon {
+WhittedIntegrator::WhittedIntegrator(const toml::table *table) {
+  m_maxDepth = table->at("maxDepth").as_integer()->get();
+}
+
 Color WhittedIntegrator::Li(Scene *scene, const Ray &r, Sampler *sampler) {
   return Li(scene, r, sampler, 0);
 }
@@ -51,4 +55,6 @@ Color WhittedIntegrator::Li(Scene *scene, const Ray &r, Sampler *sampler,
 
   return g * color * lightColor / (dist * lightRec.pdf);
 }
+
+NEON_REGISTER_CLASS(WhittedIntegrator, "whitted");
 } // namespace Neon

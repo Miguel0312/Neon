@@ -4,9 +4,10 @@
 #include "math/boundingBox.h"
 #include "math/interval.h"
 #include "math/ray.h"
+#include "math/transform.h"
 #include "reflection/bsdf.h"
 #include "scene/lights/light.h"
-#include <memory>
+#include "utils/objectFactory.h"
 namespace Neon {
 class Shape;
 
@@ -21,9 +22,9 @@ struct ShapeIntersectionRecord {
   ShapeIntersectionRecord() : n(0), p(0), t(0) {}
 };
 
-class Shape {
+class Shape : public NeonObject {
 public:
-  Shape() = delete;
+  Shape() : m_bsdf(nullptr){};
 
   Shape(BSDF *bsdf) : m_bsdf(bsdf) {}
 

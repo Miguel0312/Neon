@@ -8,6 +8,8 @@ class WhittedIntegrator final : public Integrator {
 public:
   WhittedIntegrator() = delete;
 
+  WhittedIntegrator(const toml::table *table);
+
   WhittedIntegrator(int maxDepth) : m_maxDepth(maxDepth) {}
 
   ~WhittedIntegrator() = default;

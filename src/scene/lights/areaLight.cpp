@@ -1,7 +1,18 @@
 #include "scene/lights/areaLight.h"
 #include "scene/scene.h"
+#include "scene/sceneParser.h"
+#include "utils/objectFactory.h"
+#include "utils/utils.h"
 
 namespace Neon {
+AreaLight::AreaLight(const toml::table *table) {
+  m_color = parseColor(table->at("color").as_array());
+  m_shape = SceneParser::getSingleton()->getShape(
+      table->at("shape").as_string()->get());
+  m_shape->setIsLight(true);
+  m_shape->setLight(this);
+}
+
 Color AreaLight::sample(const Scene *scene, LightSampleRecord &rec,
                         Sampler *sampler) const {
   rec.light = this;
@@ -20,4 +31,6 @@ Color AreaLight::eval(const Scene *scene, LightSampleRecord &rec) const {
 }
 
 float AreaLight::getPDF() const { return m_shape->area(); }
+
+NEON_REGISTER_CLASS(AreaLight, "area");
 } // namespace Neon

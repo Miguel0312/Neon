@@ -6,6 +6,8 @@
 namespace Neon {
 class WhiteBoxIntegrator final : public Integrator {
 public:
+  WhiteBoxIntegrator(const toml::table *table);
+
   WhiteBoxIntegrator() = delete;
 
   WhiteBoxIntegrator(int maxDepth) : m_maxDepth(maxDepth) {}

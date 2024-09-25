@@ -1,0 +1,66 @@
+samplesPerPixel = 1024
+
+[camera]
+width = 800
+height = 600
+verticalFOV = 20.0
+focalLength = 1.0
+center = [0.0,0.0,2.0]
+forward = [0.0,0.0,-1.0]
+up = [0.0,1.0,0.0]
+
+[integrator]
+type = "whitted"
+maxDepth = 10
+
+[sampler]
+type = "independent"
+
+[accelerator]
+type = "octree"
+
+[[materials]]
+name = "ground"
+type = "lambertian"
+albedo = [0.8,0.8,0.0]
+
+[[materials]]
+name = "center"
+type = "lambertian"
+albedo = [0.1,0.2,0.5]
+
+[[materials]]
+name = "light"
+type = "metallic"
+albedo = [1.0,1.0,1.0]
+
+[[shapes]]
+type = "sphere"
+center = [0.0,0.0,-0.2]
+radius = 0.5
+material = "center"
+
+[[shapes]]
+type = "sphere"
+center = [0.0,-100.5,0.0]
+radius = 100.0
+material = "ground"
+
+[[shapes]]
+name = "light1"
+type = "sphere"
+center = [-1.0,1.0,0.2]
+radius = 0.3
+material = "light"
+
+# [[shapes]]
+# type = "triangle"
+# p1 = [0.8,0.0,-0.2]
+# p2 = [1.2,0.0,-0.2]
+# p3 = [0.8,0.4,-0.2]
+# material = "center"
+
+[[lights]]
+type = "area"
+shape = "light1"
+color = [1.0,1.0,1.0]

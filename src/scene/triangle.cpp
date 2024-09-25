@@ -1,6 +1,8 @@
 #include "scene/triangle.h"
+#include "scene/sceneParser.h"
 #include "utils/consts.h"
-#include <iostream>
+#include "utils/objectFactory.h"
+#include "utils/utils.h"
 
 namespace Neon {
 Triangle::Triangle(const Point3f &p1, const Point3f &p2, const Point3f &p3,
@@ -16,7 +18,32 @@ Triangle::Triangle(const Point3f &p1, const Point3f &p2, const Point3f &p3,
 
   for (int i = 0; i < 3; i++) {
     if (maxi[i] - mini[i] < EPSILON) {
-      mini[i] += 1e-3;
+      mini[i] -= 1e-3;
+    }
+  }
+
+  m_box = BoundingBox(mini, maxi);
+}
+
+Triangle::Triangle(const toml::table *table) {
+  m_p1 = parsePoint(table->at("p1").as_array());
+  m_p2 = parsePoint(table->at("p2").as_array());
+  m_p3 = parsePoint(table->at("p3").as_array());
+
+  m_bsdf = SceneParser::getSingleton()->getMaterial(
+      table->at("material").as_string()->get());
+
+  Point3f mini(std::min(m_p1.x(), std::min(m_p2.x(), m_p3.x())),
+               std::min(m_p1.y(), std::min(m_p2.y(), m_p3.y())),
+               std::min(m_p1.z(), std::min(m_p2.z(), m_p3.z())));
+
+  Point3f maxi(std::max(m_p1.x(), std::max(m_p2.x(), m_p3.x())),
+               std::max(m_p1.y(), std::max(m_p2.y(), m_p3.y())),
+               std::max(m_p1.z(), std::max(m_p2.z(), m_p3.z())));
+
+  for (int i = 0; i < 3; i++) {
+    if (maxi[i] - mini[i] < EPSILON) {
+      mini[i] -= 1e-3;
     }
   }
 
@@ -90,4 +117,6 @@ Vector3f Triangle::normalAt(const Point3f &p) const {
   Vector3f v1 = m_p2 - m_p1, v2 = m_p3 - m_p1;
   return v1.cross(v2).normalized();
 }
+
+NEON_REGISTER_CLASS(Triangle, "triangle");
 } // namespace Neon

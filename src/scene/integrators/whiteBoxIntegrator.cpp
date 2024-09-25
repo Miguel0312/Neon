@@ -6,6 +6,10 @@
 #include "utils/color.h"
 
 namespace Neon {
+WhiteBoxIntegrator::WhiteBoxIntegrator(const toml::table *table) {
+  m_maxDepth = table->at("maxDepth").as_integer()->get();
+}
+
 Color WhiteBoxIntegrator::Li(Scene *scene, const Ray &r, Sampler *sampler) {
   return Li(scene, r, sampler, 0);
 }
@@ -31,4 +35,6 @@ Color WhiteBoxIntegrator::Li(Scene *scene, const Ray &r, Sampler *sampler,
   return color * result;
   return color * Li(scene, newRay, sampler, depth + 1);
 }
+
+NEON_REGISTER_CLASS(WhiteBoxIntegrator, "whitebox");
 } // namespace Neon

@@ -1,9 +1,9 @@
 #ifndef NEON_BSDF_H
 #define NEON_BSDF_H
 
-#include "math/transform.h"
 #include "math/vector.h"
 #include "utils/color.h"
+#include "utils/objectFactory.h"
 #include "utils/sampling/sampler.h"
 namespace Neon {
 struct BSDFQueryRecord {
@@ -20,7 +20,7 @@ struct BSDFQueryRecord {
   BSDFQueryRecord(Vector3f wi) : wi(wi) {}
 };
 
-class BSDF {
+class BSDF : public NeonObject {
 public:
   BSDF() = default;
 

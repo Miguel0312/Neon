@@ -12,6 +12,8 @@ public:
     shape->setLight(this);
   }
 
+  AreaLight(const toml::table *table);
+
   ~AreaLight() = default;
 
   Color sample(const Scene *scene, LightSampleRecord &rec,

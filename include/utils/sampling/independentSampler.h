@@ -9,6 +9,8 @@ class IndependentSampler final : public Sampler {
 public:
   IndependentSampler(int seed = 1);
 
+  IndependentSampler(const toml::table *table);
+
   ~IndependentSampler() = default;
 
   std::unique_ptr<Sampler> clone() override;
@@ -20,7 +22,7 @@ public:
 private:
   std::mt19937 m_generator;
   std::uniform_real_distribution<float> m_distribution;
-  int m_seed, m_generationCount;
+  int m_seed = 1, m_generationCount = 0;
 };
 } // namespace Neon
 

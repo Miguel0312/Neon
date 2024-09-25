@@ -2,9 +2,10 @@
 #define NEON_SAMPLER_H
 
 #include "math/point.h"
+#include "utils/objectFactory.h"
 #include <memory>
 namespace Neon {
-class Sampler {
+class Sampler : public NeonObject {
 public:
   Sampler() = default;
 

@@ -1,7 +1,12 @@
 #include "scene/accelerators/octree.h"
+#include "scene/scene.h"
+#include "utils/objectFactory.h"
 #include <iostream>
 
 namespace Neon {
+
+Octree::Octree(const toml::table *table) {}
+
 void Octree::preprocess() {
   if (m_scene == nullptr) {
     std::cout << "ERROR: accelerator's scene is not set" << std::endl;
@@ -100,4 +105,6 @@ bool Octree::rayIntersection(const Ray &r, ShapeIntersectionRecord &rec,
 
   return result;
 }
+
+NEON_REGISTER_CLASS(Octree, "octree");
 } // namespace Neon

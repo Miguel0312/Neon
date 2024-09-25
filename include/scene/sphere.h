@@ -19,6 +19,8 @@ public:
                         m_center + Point3f(m_radius));
   }
 
+  Sphere(const toml::table *table);
+
   ~Sphere() = default;
 
   bool intersect(const Ray &r, const Intervalf &tInterval,

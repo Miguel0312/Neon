@@ -1,7 +1,6 @@
 #include "accelerator.h"
 #include "math/boundingBox.h"
 #include "math/interval.h"
-#include "scene/scene.h"
 #include "scene/shape.h"
 
 namespace Neon {
@@ -20,11 +19,14 @@ struct OctreeNode {
   bool isLeaf;
   BoundingBox box;
 
-  OctreeNode() : isLeaf(false) {}
+  OctreeNode() : isLeaf(false) { nodeData.children.data = nullptr; }
 
   ~OctreeNode() {
     if (isLeaf) {
       delete[] nodeData.leaf.data;
+      return;
+    }
+    if (nodeData.children.data == nullptr) {
       return;
     }
     for (int i = 0; i < 8; i++) {
@@ -39,6 +41,8 @@ struct OctreeNode {
 class Octree final : public Accelerator {
 public:
   Octree() = default;
+
+  Octree(const toml::table *table);
 
   ~Octree() = default;
 

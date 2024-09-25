@@ -2,6 +2,7 @@
 #define NEON_LIGHT_H
 
 #include "utils/color.h"
+#include "utils/objectFactory.h"
 #include "utils/sampling/sampler.h"
 
 namespace Neon {
@@ -15,7 +16,7 @@ struct LightSampleRecord {
   Vector3f n;
 };
 
-class Light {
+class Light : public NeonObject {
 public:
   Light() = default;
 

@@ -7,6 +7,8 @@
 namespace Neon {
 class NormalIntegrator final : public Integrator {
 public:
+  NormalIntegrator(const toml::table *table);
+
   NormalIntegrator() = default;
 
   ~NormalIntegrator() = default;

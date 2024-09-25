@@ -3,11 +3,12 @@
 
 #include "math/ray.h"
 #include "utils/color.h"
+#include "utils/objectFactory.h"
 #include "utils/sampling/sampler.h"
 namespace Neon {
 class Scene;
 
-class Integrator {
+class Integrator : public NeonObject {
 public:
   Integrator() = default;
 

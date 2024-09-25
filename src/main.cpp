@@ -7,6 +7,7 @@
 #include "scene/integrators/whittedIntegrator.h"
 #include "scene/lights/areaLight.h"
 #include "scene/scene.h"
+#include "scene/sceneParser.h"
 #include "scene/shape.h"
 #include "scene/sphere.h"
 #include "scene/triangle.h"
@@ -26,12 +27,17 @@ using namespace Neon;
 int main(int argc, char *argv[]) {
   argparse::ArgumentParser argParser("Neon", "0.1.0");
 
+  argParser.add_argument("sceneFile");
   argParser.add_argument("-o", "--output").default_value("images/image.png");
   argParser.add_argument("-j").scan<'i', int>();
 
   argParser.parse_args(argc, argv);
 
-  std::unique_ptr<Camera> camera = std::make_unique<Camera>();
+  SceneParser sceneParser(argParser.get("sceneFile"));
+
+  sceneParser.renderScene();
+
+  /*std::unique_ptr<Camera> camera = std::make_unique<Camera>();
   camera->setWidth(WIDTH), camera->setHeight(HEIGHT);
   camera->setCenter({0, 0, 2});
 
@@ -95,7 +101,7 @@ int main(int argc, char *argv[]) {
 
   Visualizer visualizer(&scene);
 
-  visualizer.render();
+  visualizer.render();*/
 
   return 0;
 }
