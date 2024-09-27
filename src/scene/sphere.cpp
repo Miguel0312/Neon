@@ -30,7 +30,7 @@ bool Sphere::intersect(const Ray &r, const Intervalf &tInterval,
   }
 
   delta = std::sqrt(delta);
-  float val = (-b - delta) / 2 * a;
+  float val = (-b - delta) / (2 * a);
   if (tInterval.contains(val)) {
     if (t) {
       *t = val;
@@ -38,7 +38,7 @@ bool Sphere::intersect(const Ray &r, const Intervalf &tInterval,
     return true;
   }
 
-  val = (-b + delta) / 2 * a;
+  val = (-b + delta) / (2 * a);
   if (tInterval.contains(val)) {
     if (t) {
       *t = val;
@@ -63,7 +63,7 @@ bool Sphere::intersect(const Ray &r, const Intervalf &tInterval,
   Vector3f v = r.origin - m_center;
   const float a = 1;
   const float b = 2 * v.dot(r.dir);
-  if (rec.t > -b / 2 * a) {
+  if (rec.t > -b / (2 * a)) {
     rec.n *= -1;
   }
 

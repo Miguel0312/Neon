@@ -1,0 +1,149 @@
+samplesPerPixel = 1024
+# samplesPerPixel = 64
+
+[camera]
+width = 800
+height = 600
+verticalFOV = 60.0
+focalLength = 1.0
+center = [0.0,0.0,5.0]
+forward = [0.0,0.0,-1.0]
+up = [0.0,1.0,0.0]
+
+[integrator]
+type = "whitted"
+maxDepth = 10
+
+[sampler]
+type = "independent"
+
+[accelerator]
+type = "octree"
+
+[[materials]]
+name = "white"
+type = "lambertian"
+albedo = [0.8,0.8,0.8]
+
+[[materials]]
+name = "red"
+type = "lambertian"
+albedo = [0.8,0.0,0.0]
+
+[[materials]]
+name = "green"
+type = "lambertian"
+albedo = [0.0,0.8,0.0]
+
+[[materials]]
+name = "light"
+type = "metallic"
+albedo = [1.0,1.0,1.0]
+
+[[shapes]]
+type = "triangle"
+p1 = [-3.0,-2.0,-2.0]
+p2 = [-3.0,2.0,-2.0]
+p3 = [3.0,-2.0,-2.0]
+material = "white"
+
+[[shapes]]
+type = "triangle"
+p1 = [3.0,2.0,-2.0]
+p2 = [-3.0,2.0,-2.0]
+p3 = [3.0,-2.0,-2.0]
+material = "white"
+
+[[shapes]]
+type = "triangle"
+p1 = [-3.0,-2.0,-2.0]
+p2 = [-3.0,-2.0,2.0]
+p3 = [-3.0,2.0,-2.0]
+material = "red"
+
+[[shapes]]
+type = "triangle"
+p1 = [-3.0,2.0,2.0]
+p2 = [-3.0,-2.0,2.0]
+p3 = [-3.0,2.0,-2.0]
+material = "red"
+
+[[shapes]]
+type = "triangle"
+p1 = [3.0,-2.0,-2.0]
+p2 = [3.0,-2.0,2.0]
+p3 = [3.0,2.0,-2.0]
+material = "green"
+
+[[shapes]]
+type = "triangle"
+p1 = [3.0,2.0,2.0]
+p2 = [3.0,-2.0,2.0]
+p3 = [3.0,2.0,-2.0]
+material = "green"
+
+[[shapes]]
+type = "triangle"
+p1 = [-3.0,-2.0,-2.0]
+p2 = [-3.0,-2.0,2.0]
+p3 = [3.0,-2.0,-2.0]
+material = "white"
+
+[[shapes]]
+type = "triangle"
+p1 = [3.0,-2.0,2.0]
+p2 = [-3.0,-2.0,2.0]
+p3 = [3.0,-2.0,-2.0]
+material = "white"
+
+[[shapes]]
+type = "triangle"
+p1 = [-3.0,2.0,-2.0]
+p2 = [-3.0,2.0,2.0]
+p3 = [3.0,2.0,-2.0]
+material = "white"
+
+[[shapes]]
+type = "triangle"
+p1 = [3.0,2.0,2.0]
+p2 = [-3.0,2.0,2.0]
+p3 = [3.0,2.0,-2.0]
+material = "white"
+
+[[shapes]]
+type = "sphere"
+radius = 0.8
+center = [-1.4,-1.2,1.0]
+material = "white"
+
+[[shapes]]
+type = "sphere"
+radius = 0.8
+center = [1.5,-1.2,-0.0]
+material = "white"
+
+[[shapes]]
+type = "triangle"
+name = "light1"
+p1 = [-0.25,2.0,0.2]
+p2 = [-0.25,2.0,-0.3]
+p3 = [0.25,2.0,-0.3]
+material = "white"
+
+[[shapes]]
+type = "triangle"
+name = "light2"
+p1 = [0.25,2.0,-0.3]
+p2 = [0.25,2.0,0.2]
+p3 = [-0.25,2.0,0.2]
+material = "white"
+
+[[lights]]
+type = "area"
+shape = "light1"
+color = [20.0,20.0,20.0]
+
+[[lights]]
+type = "area"
+shape = "light2"
+color = [20.0,20.0,20.0]

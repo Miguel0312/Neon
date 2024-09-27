@@ -19,7 +19,10 @@
 - [x] Implement lights
 - [x] Enable multiple lights on the scene
 - [x] Add command line options
-- [ ] Create a way to parse a scene description without needing to recompile the program (TOML)
+- [x] Create a way to parse a scene description without needing to recompile the program (TOML)
+- [ ] Add a Cornell Box examples scene
+- [ ] Specify the number of threads when using a scene descriptor
+- [ ] Save the output image next to the image description file
 - [ ] Implement defocus blur
 - [ ] Import meshes
 - [ ] Create a precompiled header

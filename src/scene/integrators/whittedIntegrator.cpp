@@ -52,8 +52,15 @@ Color WhittedIntegrator::Li(Scene *scene, const Ray &r, Sampler *sampler,
   lightDir.normalize();
 
   float g = -intersectionRec.n.dot(lightDir) * lightRec.n.dot(lightDir);
+  Color result = g * color * lightColor / (dist * lightRec.pdf);
 
-  return g * color * lightColor / (dist * lightRec.pdf);
+  // TODO: handle the overflow in a more uniform way (probably by adding a
+  // normalization step on the png generation)
+  result.r = std::min(result.r, 1.0f);
+  result.g = std::min(result.g, 1.0f);
+  result.b = std::min(result.b, 1.0f);
+
+  return result;
 }
 
 NEON_REGISTER_CLASS(WhittedIntegrator, "whitted");

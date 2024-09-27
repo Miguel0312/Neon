@@ -1,6 +1,5 @@
 #include "utils/sampling/discretePDF.h"
 #include <algorithm>
-#include <iostream>
 
 namespace Neon {
 void DiscretePDF::add(float weight) {

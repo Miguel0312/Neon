@@ -3,6 +3,7 @@
 #include "utils/consts.h"
 #include "utils/objectFactory.h"
 #include "utils/utils.h"
+#include <iostream>
 
 namespace Neon {
 Triangle::Triangle(const Point3f &p1, const Point3f &p2, const Point3f &p3,
@@ -62,8 +63,10 @@ bool Triangle::intersect(const Ray &r, const Intervalf &tInterval,
   Vector3f p = r(tCandidate) - m_p1;
   Vector3f vPrime = u.cross(v1);
 
-  float aPrime = p.dot(v1), bPrime = p.dot(vPrime);
-  float alpha = v2.dot(v1), beta = v2.dot(vPrime);
+  float aPrime = p.dot(v1) / v1.lengthSq(),
+        bPrime = p.dot(vPrime) / vPrime.lengthSq();
+  float alpha = v2.dot(v1) / v1.lengthSq(),
+        beta = v2.dot(vPrime) / vPrime.lengthSq();
 
   float a = aPrime - bPrime * alpha / beta, b = bPrime / beta;
 
@@ -89,7 +92,7 @@ bool Triangle::intersect(const Ray &r, const Intervalf &tInterval,
   rec.p = r(rec.t);
   rec.n = v1.cross(v2).normalized();
 
-  if (rec.n.dot(r.dir) < 0) {
+  if (rec.n.dot(r.dir) > 0) {
     rec.n *= -1;
   }
 
@@ -104,13 +107,13 @@ void Triangle::sample(Point3f &p, Vector3f &n, Sampler *sampler) const {
   Point2f sample = sampler->next2D();
   Vector3f v1 = m_p2 - m_p1, v2 = m_p3 - m_p1;
 
-  p = m_p1 + sample.x() * v1 + sample.y() * v2;
+  p = m_p1 + sample.x() * v1 + sample.y() * (1 - sample.x()) * v2;
   n = v1.cross(v2).normalized();
 }
 
 float Triangle::area() const {
   Vector3f v1 = m_p2 - m_p1, v2 = m_p3 - m_p1;
-  return 0.5f * std::abs(v1.dot(v2));
+  return 0.5f * v1.cross(v2).length();
 }
 
 Vector3f Triangle::normalAt(const Point3f &p) const {

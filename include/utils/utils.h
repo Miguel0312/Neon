@@ -21,4 +21,6 @@ inline Color parseColor(const toml::array *node) {
                node->at(1).as_floating_point()->get(),
                node->at(2).as_floating_point()->get());
 }
+
+inline float toRadians(float x) { return x * M_PI / 180; }
 } // namespace Neon

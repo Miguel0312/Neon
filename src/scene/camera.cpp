@@ -1,6 +1,6 @@
 #include "scene/camera.h"
 #include "math/vector.h"
-#include <cmath>
+#include "utils/utils.h"
 
 namespace Neon {
 Ray Camera::getRay(unsigned int i, unsigned int j, const Point2f &sample) {
@@ -20,7 +20,8 @@ Ray Camera::getRay(unsigned int i, unsigned int j, const Point2f &sample) {
 
 void Camera::prepareForRender() {
   m_computed = true;
-  float viewportHeight = 2 * std::tan(m_verticalFOV / 2) * m_focalLength;
+  float viewportHeight =
+      2 * std::tan(toRadians(m_verticalFOV / 2)) * m_focalLength;
   float viewportWidth = viewportHeight * m_width / m_height;
 
   Vector3f right = m_forward.cross(m_up);
