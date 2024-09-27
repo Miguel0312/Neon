@@ -1,12 +1,12 @@
 #include "scene/sceneParser.h"
 #include "scene/accelerators/accelerator.h"
 #include "scene/integrators/integrator.h"
-#include "scene/integrators/normalIntegrator.h"
 #include "scene/scene.h"
+#include "thirdparty/argparse/argparse.h"
 #include "utils/objectFactory.h"
 #include "utils/utils.h"
 #include "utils/visualizer.h"
-#include <functional>
+#include <filesystem>
 #include <iostream>
 #include <memory>
 
@@ -20,6 +20,10 @@ SceneParser::SceneParser(const std::string &configFile) {
     m_isOk = false;
     return;
   }
+
+  std::filesystem::path configFilePath(configFile);
+  configFilePath.replace_extension(".png");
+  m_scene.setFilename(configFilePath.string());
 
   m_config = toml::parse_file(configFile);
 
@@ -35,6 +39,14 @@ SceneParser::SceneParser(const std::string &configFile) {
   parseMaterials();
   parseShapes();
   parseLights();
+}
+
+SceneParser::SceneParser(const std::string &configFile,
+                         const argparse::ArgumentParser &args)
+    : SceneParser(configFile) {
+  if (args.is_used("-j")) {
+    m_scene.setRenderingThreadsCount(args.get<int>("-j"));
+  }
 }
 
 void SceneParser::renderScene() {

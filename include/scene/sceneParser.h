@@ -2,6 +2,7 @@
 #define SCENE_PARSER_H
 
 #include "scene/scene.h"
+#include "thirdparty/argparse/argparse.h"
 #include <thirdparty/toml++/toml.h>
 
 namespace Neon {
@@ -10,6 +11,9 @@ public:
   SceneParser() = delete;
 
   SceneParser(const std::string &configFile);
+
+  SceneParser(const std::string &configFile,
+              const argparse::ArgumentParser &args);
 
   ~SceneParser() { m_singleton = nullptr; };
 
