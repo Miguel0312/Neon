@@ -4,6 +4,7 @@
 #include "math/point.h"
 #include "math/ray.h"
 #include "math/vector.h"
+#include "utils/sampling/sampler.h"
 
 namespace Neon {
 class Camera {
@@ -12,7 +13,7 @@ public:
 
   // Returns a ray starting from the camera center and passing by the (i,j)
   // pixel in the viewport
-  Ray getRay(unsigned int i, unsigned int j, const Point2f &sample);
+  Ray getRay(unsigned int i, unsigned int j, Sampler *sampler);
 
   inline void setWidth(unsigned int width) { m_width = width; }
 
@@ -28,6 +29,8 @@ public:
 
   inline void setFocalLength(float focalLength) { m_focalLength = focalLength; }
 
+  inline void setLensRadius(float lensRadius) { m_lensRadius = lensRadius; }
+
   unsigned int getWidth() const { return m_width; }
 
   unsigned int getHeight() const { return m_height; }
@@ -42,13 +45,18 @@ public:
 
   float getFocalLength() const { return m_focalLength; }
 
+  float getLensRadius() const { return m_lensRadius; }
+
 private:
   unsigned int m_width = 800, m_height = 600;
-  float m_verticalFOV = 20;
+  float m_verticalFOV;
   Point3f m_center{0};
   // Normalized vectors in world coordinates
   Vector3f m_forward{0, 0, -1}, m_up{0, 1, 0};
+  // Distance between the film and the focus plane
   float m_focalLength = 1;
+  float m_lensRadius = 0;
+  Vector3f m_lensU, m_lensV;
 
   bool m_computed = false;
   // Vector from m_center to the pixel (0,0)

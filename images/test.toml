@@ -3,10 +3,11 @@ samplesPerPixel = 1024
 [camera]
 width = 800
 height = 600
-verticalFOV = 20.0
-focalLength = 1.0
+verticalFOV = 60.0
+focalLength = 2.2
 center = [0.0,0.0,2.0]
 forward = [0.0,0.0,-1.0]
+lensRadius = 0.05
 up = [0.0,1.0,0.0]
 
 [integrator]
@@ -36,7 +37,13 @@ albedo = [1.0,1.0,1.0]
 
 [[shapes]]
 type = "sphere"
-center = [0.0,0.0,-0.2]
+center = [-1.0,0.0,-0.2]
+radius = 0.5
+material = "center"
+
+[[shapes]]
+type = "sphere"
+center = [1.0,0.0,-1.0]
 radius = 0.5
 material = "center"
 

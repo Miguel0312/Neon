@@ -6,6 +6,7 @@ width = 800
 height = 600
 verticalFOV = 60.0
 focalLength = 1.0
+lensRadius = 0.0
 center = [0.0,0.0,5.0]
 forward = [0.0,0.0,-1.0]
 up = [0.0,1.0,0.0]

@@ -90,7 +90,7 @@ void Scene::render() {
           for (int l = j; l < b; l++) {
             Color result(0);
             for (int m = 0; m < m_sampleCount; m++) {
-              Ray ray = m_camera->getRay(k, l, sampler->next2D());
+              Ray ray = m_camera->getRay(k, l, sampler.get());
               result += m_integrator->Li(this, ray, sampler.get());
             }
             m_pixels[k][l] = result / m_sampleCount;

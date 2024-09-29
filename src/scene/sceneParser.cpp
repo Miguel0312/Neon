@@ -81,6 +81,9 @@ void SceneParser::parseCamera() {
     return;
   }
 
+  // TODO: implement this part on the camera file to be consistent with the
+  // other classes
+  // TODO: gracefully handle missing keys
   std::unique_ptr<Camera> camera = std::make_unique<Camera>();
   auto cameraTable = cameraNode->as_table();
   camera->setWidth(cameraTable->at("width").as_integer()->get());
@@ -89,6 +92,8 @@ void SceneParser::parseCamera() {
       cameraTable->at("verticalFOV").as_floating_point()->get());
   camera->setFocalLength(
       cameraTable->at("focalLength").as_floating_point()->get());
+  camera->setLensRadius(
+      cameraTable->at("lensRadius").as_floating_point()->get());
 
   camera->setCenter(parsePoint(cameraTable->at("center").as_array()));
   camera->setForward(parseVector(cameraTable->at("forward").as_array()));
