@@ -23,9 +23,10 @@
 - [x] Add a Cornell Box examples scene
 - [x] Specify the number of threads when using a scene descriptor
 - [x] Save the output image next to the image description file
+- [x] Implement dielectric materials with fresnel sampling
 - [ ] Implement defocus blur
 - [ ] Import meshes
 - [ ] Create a precompiled header
 - [ ] Create a normal class
-- [ ] Implement other BSDF (diffractive, texture mapping, etc.)
+- [ ] Implement other BSDF (texture mapping, etc.)
 - [ ] Implement other types of samplers (metropolis, stratified, etc.)

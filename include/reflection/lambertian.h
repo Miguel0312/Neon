@@ -10,7 +10,7 @@ public:
 
   Lambertian(const toml::table *table);
 
-  Lambertian(Color albedo) : m_albedo(albedo) {}
+  Lambertian(Color albedo) : BSDF(true), m_albedo(albedo) {}
 
   ~Lambertian() = default;
 

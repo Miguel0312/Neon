@@ -5,7 +5,7 @@
 #include "utils/utils.h"
 
 namespace Neon {
-Lambertian::Lambertian(const toml::table *table) {
+Lambertian::Lambertian(const toml::table *table) : BSDF(true) {
   m_albedo = parseColor(table->at("albedo").as_array());
 }
 

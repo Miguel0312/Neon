@@ -32,6 +32,14 @@ Color WhittedIntegrator::Li(Scene *scene, const Ray &r, Sampler *sampler,
     return intersectionRec.shape->getLight()->eval(scene, lightRec);
   }
 
+  if (!intersectionRec.shape->getBSDF()->isDiffuse()) {
+    BSDFQueryRecord bsdfRec(intersectionRec.frame.worldToLocal(r.dir));
+    Color color = intersectionRec.shape->getBSDF()->sample(bsdfRec, sampler);
+    Ray newRay(intersectionRec.p,
+               intersectionRec.frame.localToWorld(bsdfRec.wo));
+    return color * Li(scene, newRay, sampler, depth + 1);
+  }
+
   LightSampleRecord lightRec;
   Color lightColor = scene->sampleLight(lightRec, sampler);
 

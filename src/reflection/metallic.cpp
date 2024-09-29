@@ -3,7 +3,7 @@
 #include "utils/utils.h"
 
 namespace Neon {
-Metallic::Metallic(const toml::table *table) {
+Metallic::Metallic(const toml::table *table) : BSDF(false) {
   m_albedo = parseColor(table->at("albedo").as_array());
 }
 

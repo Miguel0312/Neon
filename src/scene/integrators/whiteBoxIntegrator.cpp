@@ -31,8 +31,6 @@ Color WhiteBoxIntegrator::Li(Scene *scene, const Ray &r, Sampler *sampler,
 
   Ray newRay(intersectionRec.p, intersectionRec.frame.localToWorld(bsdfRec.wo));
 
-  Color result = Li(scene, newRay, sampler, depth + 1);
-  return color * result;
   return color * Li(scene, newRay, sampler, depth + 1);
 }
 

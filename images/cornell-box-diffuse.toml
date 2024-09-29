@@ -36,16 +36,6 @@ type = "lambertian"
 albedo = [0.0,0.8,0.0]
 
 [[materials]]
-name = "mirror"
-type = "metallic"
-albedo = [1.0,1.0,1.0]
-
-[[materials]]
-name = "glass"
-type = "dielectric"
-refractionIndex = 1.5
-
-[[materials]]
 name = "light"
 type = "metallic"
 albedo = [1.0,1.0,1.0]
@@ -124,28 +114,28 @@ material = "white"
 type = "sphere"
 radius = 0.8
 center = [-1.4,-1.2,1.0]
-material = "glass"
+material = "white"
 
 [[shapes]]
 type = "sphere"
 radius = 0.8
 center = [1.5,-1.2,-0.0]
-material = "mirror"
+material = "white"
 
 [[shapes]]
 type = "triangle"
 name = "light1"
-p1 = [-0.25,1.999,0.2]
-p2 = [-0.25,1.999,-0.3]
-p3 = [0.25,1.999,-0.3]
+p1 = [-0.25,2.0,0.2]
+p2 = [-0.25,2.0,-0.3]
+p3 = [0.25,2.0,-0.3]
 material = "white"
 
 [[shapes]]
 type = "triangle"
 name = "light2"
-p1 = [0.25,1.999,-0.3]
-p2 = [0.25,1.999,0.2]
-p3 = [-0.25,1.999,0.2]
+p1 = [0.25,2.0,-0.3]
+p2 = [0.25,2.0,0.2]
+p3 = [-0.25,2.0,0.2]
 material = "white"
 
 [[lights]]

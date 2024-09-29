@@ -14,6 +14,7 @@ add_executable(neon src/main.cpp
   src/math/boundingBox.cpp
   src/math/matrix.cpp
   src/math/transform.cpp
+  src/reflection/dielectric.cpp
   src/reflection/lambertian.cpp
   src/reflection/metallic.cpp
   src/scene/accelerators/octree.cpp

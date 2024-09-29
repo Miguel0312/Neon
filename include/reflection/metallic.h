@@ -10,7 +10,7 @@ public:
 
   Metallic(const toml::table *table);
 
-  Metallic(Color albedo) : m_albedo(albedo) {}
+  Metallic(Color albedo) : BSDF(false), m_albedo(albedo) {}
 
   ~Metallic() = default;
 
